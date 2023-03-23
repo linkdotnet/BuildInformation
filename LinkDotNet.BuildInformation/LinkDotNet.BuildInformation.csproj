@@ -13,6 +13,9 @@
         <Company>Steven Giesel</Company>
         <Title>BuildInformation</Title>
         <Description>Supplies information about the build like build time.</Description>
+        <PackageProjectUrl>https://github.com/linkdotnet/BuildInformation</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/linkdotnet/BuildInformation</RepositoryUrl>
+        <PackageTags>s^csharp,dotnet,msbuild,roslyn</PackageTags>
         <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
