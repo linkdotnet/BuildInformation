@@ -11,6 +11,7 @@ This project provides a simple and easy-to-use C# source generator that embeds b
 * Embeds platform (AnyCPU, x86, x64, ...) information in your code
 * Embeds compiler warning level in your code
 * Embeds build configuration (e.g., Debug, Release) in your code
+* Embeds the assembly version and assembly file version in your code
 
 ## Usage
 To use the `BuildInformation` class in your project, add the NuGet package:
@@ -27,14 +28,20 @@ Console.WriteLine($"Build at: {BuildInformation.BuildAt}");
 Console.WriteLine($"Platform: {BuildInformation.Platform}");
 Console.WriteLine($"Warning level: {BuildInformation.WarningLevel}");
 Console.WriteLine($"Configuration: {BuildInformation.Configuration}");
+Console.WriteLine($"Assembly version: {BuildInformation.AssemblyVersion}");
+Console.WriteLine($"Assembly file version: {BuildInformation.AssemblyFileVersion}");
+Console.WriteLine($"Assembly name: {BuildInformation.AssemblyName}");
 ```
 
 You can also hover over the properties to get the currently held value (xmldoc support). An example output could look like this:
 ```no-class
-Build at: 2023-03-23T12:34:56.7890123Z
-Platform: AnyCPU
-Warning level: 4
+Build at: 24.03.2023 21:32:17
+Platform: AnyCpu
+Warning level: 7
 Configuration: Debug
+Assembly version: 1.0
+Assembly file version: 1.2
+Assembly name: LinkDotNet.BuildInformation.Sample
 ```
 
 ## Contributing
