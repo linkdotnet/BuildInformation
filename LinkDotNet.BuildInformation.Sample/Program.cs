@@ -7,3 +7,4 @@ Console.WriteLine($"Configuration: {BuildInformation.Configuration}");
 Console.WriteLine($"Assembly version: {BuildInformation.AssemblyVersion}");
 Console.WriteLine($"Assembly file version: {BuildInformation.AssemblyFileVersion}");
 Console.WriteLine($"Assembly name: {BuildInformation.AssemblyName}");
+Console.WriteLine($"Target framework moniker: {BuildInformation.TargetFrameworkMoniker}");
