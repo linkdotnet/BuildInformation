@@ -4,6 +4,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkDotNet.BuildInformation
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkDotNet.BuildInformation.Sample", "LinkDotNet.BuildInformation.Sample\LinkDotNet.BuildInformation.Sample.csproj", "{B9A197AA-2580-4AC7-8E60-2ECF12F2A198}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".text", ".text", "{985BB5C0-64D5-44E5-849C-08D7CDADCD74}"
+	ProjectSection(SolutionItems) = preProject
+		CHANGELOG.md = CHANGELOG.md
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

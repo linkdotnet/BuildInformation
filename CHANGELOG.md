@@ -7,4 +7,4 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 ## [Unreleased]
 
 ### Added
-- Initial release
+- New assembly related objects

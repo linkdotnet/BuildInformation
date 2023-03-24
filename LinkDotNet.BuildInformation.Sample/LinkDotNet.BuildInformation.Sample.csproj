@@ -6,10 +6,12 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <IsPackable>false</IsPackable>
+        <AssemblyVersion>1.0</AssemblyVersion>
+        <FileVersion>1.2</FileVersion>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\LinkDotNet.BuildInformation\LinkDotNet.BuildInformation.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
+      <ProjectReference Include="..\LinkDotNet.BuildInformation\LinkDotNet.BuildInformation.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     </ItemGroup>
 
 </Project>
