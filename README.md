@@ -32,6 +32,7 @@ Console.WriteLine($"Configuration: {BuildInformation.Configuration}");
 Console.WriteLine($"Assembly version: {BuildInformation.AssemblyVersion}");
 Console.WriteLine($"Assembly file version: {BuildInformation.AssemblyFileVersion}");
 Console.WriteLine($"Assembly name: {BuildInformation.AssemblyName}");
+Console.WriteLine($"Target framework moniker: {BuildInformation.TargetFrameworkMoniker}");
 ```
 
 You can also hover over the properties to get the currently held value (xmldoc support). An example output could look like this:
@@ -43,6 +44,7 @@ Configuration: Debug
 Assembly version: 1.0
 Assembly file version: 1.2
 Assembly name: LinkDotNet.BuildInformation.Sample
+Target framework moniker: net7.0
 ```
 
 ## Contributing
