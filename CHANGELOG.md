@@ -6,9 +6,11 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+## [0.3.0] - 2023-03-24
+
 ### Added
 
-- Added framework moniker to the build information
+-   Added framework moniker to the build information
 
 ## [0.2.0] - 2023-03-24
 
@@ -16,6 +18,8 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 -   New assembly related objects
 
-[Unreleased]: https://github.com/linkdotnet/BuildInformation/compare/0.2.0...HEAD
+[Unreleased]: https://github.com/linkdotnet/BuildInformation/compare/0.3.0...HEAD
+
+[0.3.0]: https://github.com/linkdotnet/BuildInformation/compare/0.2.0...0.3.0
 
 [0.2.0]: https://github.com/linkdotnet/BuildInformation/compare/9866bfb38171ce0b36aae085d07d15f6e2bc6ff3...0.2.0
