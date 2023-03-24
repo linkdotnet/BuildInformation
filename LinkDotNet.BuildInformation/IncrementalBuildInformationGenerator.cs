@@ -7,27 +7,34 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
     {
         var compilationAndOptionsProvider = context
             .CompilationProvider
+            .Combine(context.AnalyzerConfigOptionsProvider)
             .Select((s, _) => s);
 
         context.RegisterSourceOutput(compilationAndOptionsProvider, static (productionContext, options) =>
         {
-            var assembly = options.Assembly;
+            var compiler = options.Left;
+            var analyzer = options.Right;
+
+            analyzer.GlobalOptions.TryGetValue("build_property.TargetFramework", out var targetFrameworkValue);
+
+            var assembly = compiler.Assembly;
             var buildInformation = new BuildInformationInfo
             {
                 BuildAt = DateTime.UtcNow.ToString("O"),
-                Platform = options.Options.Platform.ToString(),
-                WarningLevel = options.Options.WarningLevel,
-                Configuration = options.Options.OptimizationLevel.ToString(),
-                AssemblyVersion = GetAssemblyVersion(assembly),
-                AssemblyFileVersion = GetAssemblyFileVersion(assembly),
+                Platform = compiler.Options.Platform.ToString(),
+                WarningLevel = compiler.Options.WarningLevel,
+                Configuration = compiler.Options.OptimizationLevel.ToString(),
+                AssemblyVersion = GetAssemblyVersion(assembly) ?? string.Empty,
+                AssemblyFileVersion = GetAssemblyFileVersion(assembly) ?? string.Empty,
                 AssemblyName = assembly.Name,
+                TargetFrameworkMoniker = targetFrameworkValue ?? string.Empty,
             };
 
             productionContext.AddSource("LinkDotNet.BuildInformation.g", GenerateBuildInformationClass(buildInformation));
         });
     }
 
-    private static string GetAssemblyFileVersion(ISymbol assembly)
+    private static string? GetAssemblyFileVersion(ISymbol assembly)
     {
         var assemblyFileVersionAttribute = assembly.GetAttributes()
             .FirstOrDefault(attr => attr.AttributeClass?.Name == "AssemblyFileVersionAttribute");
@@ -37,7 +44,7 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
         return assemblyFileVersion;
     }
 
-    private static string GetAssemblyVersion(ISymbol assembly)
+    private static string? GetAssemblyVersion(ISymbol assembly)
     {
         var assemblyVersionAttribute = assembly.GetAttributes()
             .FirstOrDefault(attr => attr.AttributeClass?.Name == "AssemblyVersionAttribute");
@@ -83,19 +90,25 @@ public static class BuildInformation
     /// Returns the assembly version.
     /// </summary>
     /// <remarks>Value is: {buildInformation.AssemblyVersion}</remarks>
-    public const string AssemblyVersion = ""{buildInformation.AssemblyVersion ?? string.Empty}"";
+    public const string AssemblyVersion = ""{buildInformation.AssemblyVersion}"";
 
     /// <summary>
     /// Returns the assembly file version.
     /// </summary>
     /// <remarks>Value is: {buildInformation.AssemblyFileVersion}</remarks>
-    public const string AssemblyFileVersion = ""{buildInformation.AssemblyFileVersion ?? string.Empty}"";
+    public const string AssemblyFileVersion = ""{buildInformation.AssemblyFileVersion}"";
 
     /// <summary>
     /// Returns the assembly name.
     /// </summary>
     /// <remarks>Value is: {buildInformation.AssemblyName}</remarks>
-    public const string AssemblyName = ""{buildInformation.AssemblyName ?? string.Empty}"";
+    public const string AssemblyName = ""{buildInformation.AssemblyName}"";
+
+    /// <summary>
+    /// Returns the target framework moniker.
+    /// </summary>
+    /// <remarks>Value is: {buildInformation.TargetFrameworkMoniker}</remarks>
+    public const string TargetFrameworkMoniker = ""{buildInformation.TargetFrameworkMoniker}"";
 }}
 ";
     }
@@ -106,8 +119,9 @@ public static class BuildInformation
         public string Platform { get; set; } = string.Empty;
         public int WarningLevel { get; set; }
         public string Configuration { get; set; } = string.Empty;
-        public string? AssemblyVersion { get; set; }
-        public string? AssemblyFileVersion { get; set; }
-        public string? AssemblyName { get; set; }
+        public string AssemblyVersion { get; set; } = string.Empty;
+        public string AssemblyFileVersion { get; set; } = string.Empty;
+        public string AssemblyName { get; set; } = string.Empty;
+        public string TargetFrameworkMoniker { get; set; } = string.Empty;
     }
 }

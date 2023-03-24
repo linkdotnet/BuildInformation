@@ -6,6 +6,10 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Added
+
+- Added framework moniker to the build information
+
 ## [0.2.0] - 2023-03-24
 
 ### Added

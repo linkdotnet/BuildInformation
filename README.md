@@ -12,6 +12,7 @@ This project provides a simple and easy-to-use C# source generator that embeds b
 * Embeds compiler warning level in your code
 * Embeds build configuration (e.g., Debug, Release) in your code
 * Embeds the assembly version and assembly file version in your code
+* Embeds the target framework moniker in your code
 
 ## Usage
 To use the `BuildInformation` class in your project, add the NuGet package:
