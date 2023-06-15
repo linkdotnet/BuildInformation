@@ -16,6 +16,7 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
             var analyzer = options.Right;
 
             analyzer.GlobalOptions.TryGetValue("build_property.TargetFramework", out var targetFrameworkValue);
+            var nullability = compiler.Options.NullableContextOptions.ToString();
 
             var assembly = compiler.Assembly;
             var buildInformation = new BuildInformationInfo
@@ -28,6 +29,7 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                 AssemblyFileVersion = GetAssemblyFileVersion(assembly) ?? string.Empty,
                 AssemblyName = assembly.Name,
                 TargetFrameworkMoniker = targetFrameworkValue ?? string.Empty,
+                Nullability = nullability,
             };
 
             productionContext.AddSource("LinkDotNet.BuildInformation.g", GenerateBuildInformationClass(buildInformation));
@@ -109,6 +111,12 @@ public static class BuildInformation
     /// </summary>
     /// <remarks>Value is: {buildInformation.TargetFrameworkMoniker}</remarks>
     public const string TargetFrameworkMoniker = ""{buildInformation.TargetFrameworkMoniker}"";
+
+    /// <summary>
+    /// Returns the nullability level.
+    /// </summary>
+    /// <remarks>Value is: {buildInformation.Nullability}</remarks>
+    public const string Nullability = ""{buildInformation.Nullability}"";
 }}
 ";
     }
@@ -123,5 +131,7 @@ public static class BuildInformation
         public string AssemblyFileVersion { get; set; } = string.Empty;
         public string AssemblyName { get; set; } = string.Empty;
         public string TargetFrameworkMoniker { get; set; } = string.Empty;
+
+        public string Nullability { get; set; } = string.Empty;
     }
 }

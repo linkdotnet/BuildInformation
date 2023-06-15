@@ -6,6 +6,10 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Added
+
+-   Added support for nullability analysis level
+
 ## [0.3.0] - 2023-03-24
 
 ### Added
