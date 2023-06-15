@@ -6,6 +6,8 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+## [0.4.0] - 2023-06-15
+
 ### Added
 
 -   Added support for nullability analysis level
@@ -23,7 +25,9 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 -   New assembly related objects
 
-[Unreleased]: https://github.com/linkdotnet/BuildInformation/compare/0.3.0...HEAD
+[Unreleased]: https://github.com/linkdotnet/BuildInformation/compare/0.4.0...HEAD
+
+[0.4.0]: https://github.com/linkdotnet/BuildInformation/compare/0.3.0...0.4.0
 
 [0.3.0]: https://github.com/linkdotnet/BuildInformation/compare/0.2.0...0.3.0
 
