@@ -14,6 +14,7 @@ This project provides a simple and easy-to-use C# source generator that embeds b
 * Embeds the assembly version and assembly file version in your code
 * Embeds the target framework moniker in your code
 * Embeds the nullability analysis level in your code
+* Embeds the deterministic build flag in your code
 
 ## Usage
 To use the `BuildInformation` class in your project, add the NuGet package:
@@ -35,6 +36,7 @@ Console.WriteLine($"Assembly file version: {BuildInformation.AssemblyFileVersion
 Console.WriteLine($"Assembly name: {BuildInformation.AssemblyName}");
 Console.WriteLine($"Target framework moniker: {BuildInformation.TargetFrameworkMoniker}");
 Console.WriteLine($"Analysis level: {BuildInformation.Nullability}");
+Console.WriteLine($"Deterministic build: {BuildInformation.Deterministic}");
 ```
 
 You can also hover over the properties to get the currently held value (xmldoc support). An example output could look like this:
@@ -48,6 +50,7 @@ Assembly file version: 1.2
 Assembly name: LinkDotNet.BuildInformation.Sample
 Target framework moniker: net7.0
 Analysis level: enabled
+Deterministic build: true
 ```
 
 ## Contributing

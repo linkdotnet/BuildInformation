@@ -9,6 +9,7 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 ### Added
 
 -   Added support for nullability analysis level
+-   Added support for deterministic builds
 
 ## [0.3.0] - 2023-03-24
 

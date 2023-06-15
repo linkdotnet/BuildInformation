@@ -30,6 +30,7 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                 AssemblyName = assembly.Name,
                 TargetFrameworkMoniker = targetFrameworkValue ?? string.Empty,
                 Nullability = nullability,
+                Deterministic = compiler.Options.Deterministic,
             };
 
             productionContext.AddSource("LinkDotNet.BuildInformation.g", GenerateBuildInformationClass(buildInformation));
@@ -117,6 +118,12 @@ public static class BuildInformation
     /// </summary>
     /// <remarks>Value is: {buildInformation.Nullability}</remarks>
     public const string Nullability = ""{buildInformation.Nullability}"";
+
+    /// <summary>
+    /// Returns whether the build is deterministic.
+    /// </summary>
+    /// <remarks>Value is: {buildInformation.Deterministic.ToString().ToLowerInvariant()}</remarks>
+    public const bool Deterministic = {buildInformation.Deterministic.ToString().ToLowerInvariant()};
 }}
 ";
     }
@@ -131,7 +138,7 @@ public static class BuildInformation
         public string AssemblyFileVersion { get; set; } = string.Empty;
         public string AssemblyName { get; set; } = string.Empty;
         public string TargetFrameworkMoniker { get; set; } = string.Empty;
-
         public string Nullability { get; set; } = string.Empty;
+        public bool Deterministic { get; set; }
     }
 }
