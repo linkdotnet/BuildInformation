@@ -35,7 +35,7 @@ Console.WriteLine($"Assembly version: {BuildInformation.AssemblyVersion}");
 Console.WriteLine($"Assembly file version: {BuildInformation.AssemblyFileVersion}");
 Console.WriteLine($"Assembly name: {BuildInformation.AssemblyName}");
 Console.WriteLine($"Target framework moniker: {BuildInformation.TargetFrameworkMoniker}");
-Console.WriteLine($"Analysis level: {BuildInformation.Nullability}");
+Console.WriteLine($"Nullability level: {BuildInformation.Nullability}");
 Console.WriteLine($"Deterministic build: {BuildInformation.Deterministic}");
 ```
 
@@ -49,7 +49,7 @@ Assembly version: 1.0
 Assembly file version: 1.2
 Assembly name: LinkDotNet.BuildInformation.Sample
 Target framework moniker: net7.0
-Analysis level: enabled
+Nullability level: enabled
 Deterministic build: true
 ```
 
