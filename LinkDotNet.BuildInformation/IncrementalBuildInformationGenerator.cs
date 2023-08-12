@@ -1,4 +1,7 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using System.Reflection;
+using Microsoft.CodeAnalysis;
+
+namespace LinkDotNet.BuildInformation;
 
 [Generator]
 public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
@@ -17,6 +20,9 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
 
             analyzer.GlobalOptions.TryGetValue("build_property.TargetFramework", out var targetFrameworkValue);
             var nullability = compiler.Options.NullableContextOptions.ToString();
+            var configuration =
+                Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyConfigurationAttribute>()?.Configuration ??
+                compiler.Options.OptimizationLevel.ToString();
 
             var assembly = compiler.Assembly;
             var buildInformation = new BuildInformationInfo
@@ -24,7 +30,7 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                 BuildAt = DateTime.UtcNow.ToString("O"),
                 Platform = compiler.Options.Platform.ToString(),
                 WarningLevel = compiler.Options.WarningLevel,
-                Configuration = compiler.Options.OptimizationLevel.ToString(),
+                Configuration = configuration,
                 AssemblyVersion = GetAssemblyVersion(assembly) ?? string.Empty,
                 AssemblyFileVersion = GetAssemblyFileVersion(assembly) ?? string.Empty,
                 AssemblyName = assembly.Name,

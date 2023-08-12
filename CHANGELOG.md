@@ -6,6 +6,10 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Changed
+
+- `Configuration` also takes custom configuration into account
+
 ## [0.4.0] - 2023-06-15
 
 ### Added
