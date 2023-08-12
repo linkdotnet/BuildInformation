@@ -6,9 +6,11 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+## [0.4.1] - 2023-08-12
+
 ### Changed
 
-- `Configuration` also takes custom configuration into account
+-   `Configuration` also takes custom configuration into account
 
 ## [0.4.0] - 2023-06-15
 
@@ -29,7 +31,9 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 -   New assembly related objects
 
-[Unreleased]: https://github.com/linkdotnet/BuildInformation/compare/0.4.0...HEAD
+[Unreleased]: https://github.com/linkdotnet/BuildInformation/compare/0.4.1...HEAD
+
+[0.4.1]: https://github.com/linkdotnet/BuildInformation/compare/0.4.0...0.4.1
 
 [0.4.0]: https://github.com/linkdotnet/BuildInformation/compare/0.3.0...0.4.0
 
