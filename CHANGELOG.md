@@ -6,6 +6,10 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Changed
+
+- Used meta-package for analyzers to reduce dependency errors
+
 ## [0.4.1] - 2023-08-12
 
 ### Changed
