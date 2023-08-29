@@ -6,9 +6,11 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+## [0.4.2] - 2023-08-29
+
 ### Changed
 
-- Used meta-package for analyzers to reduce dependency errors
+-   Used meta-package for analyzers to reduce dependency errors
 
 ## [0.4.1] - 2023-08-12
 
@@ -35,7 +37,9 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 -   New assembly related objects
 
-[Unreleased]: https://github.com/linkdotnet/BuildInformation/compare/0.4.1...HEAD
+[Unreleased]: https://github.com/linkdotnet/BuildInformation/compare/0.4.2...HEAD
+
+[0.4.2]: https://github.com/linkdotnet/BuildInformation/compare/0.4.1...0.4.2
 
 [0.4.1]: https://github.com/linkdotnet/BuildInformation/compare/0.4.0...0.4.1
 
