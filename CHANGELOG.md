@@ -6,13 +6,16 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+## [1.0.0] - 2023-12-30
+
 ### Added
-- Option, to use the root namespace for the generated class (see README.md for more details)
+
+-   Option, to use the root namespace for the generated class (see README.md for more details)
 
 ### Changed
 
-- Use auto-generated header so analyzers don't complain
-- Made `BuildInformation` class internal if used across different assemblies
+-   Use auto-generated header so analyzers don't complain
+-   Made `BuildInformation` class internal if used across different assemblies
 
 ## [0.4.2] - 2023-08-29
 
@@ -45,7 +48,9 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 -   New assembly related objects
 
-[Unreleased]: https://github.com/linkdotnet/BuildInformation/compare/0.4.2...HEAD
+[Unreleased]: https://github.com/linkdotnet/BuildInformation/compare/1.0.0...HEAD
+
+[1.0.0]: https://github.com/linkdotnet/BuildInformation/compare/0.4.2...1.0.0
 
 [0.4.2]: https://github.com/linkdotnet/BuildInformation/compare/0.4.1...0.4.2
 
