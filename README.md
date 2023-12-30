@@ -16,6 +16,20 @@ This project provides a simple and easy-to-use C# source generator that embeds b
 * Embeds the nullability analysis level in your code
 * Embeds the deterministic build flag in your code
 
+## Configuration
+By default the created class is `internal` and is not under any namespace. This can be changed by adding the following to your project file:
+```xml
+<PropertyGroup>
+    <UseRootNamespaceForBuildInformation>true</UseRootNamespaceForBuildInformation>
+</PropertyGroup>
+
+<ItemGroup>
+    <CompilerVisibleProperty Include="UseRootNamespaceForBuildInformation" />
+</ItemGroup>
+```
+
+This will use the root namespace of the project for the generated class. This is especially helpful if the generator is used in multiple projects, that might be visible to each other.
+
 ## Usage
 To use the `BuildInformation` class in your project, add the NuGet package:
 

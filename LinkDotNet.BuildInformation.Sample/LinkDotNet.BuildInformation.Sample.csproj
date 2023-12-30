@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net7.0</TargetFramework>
@@ -8,7 +7,12 @@
         <IsPackable>false</IsPackable>
         <AssemblyVersion>1.0</AssemblyVersion>
         <FileVersion>1.2</FileVersion>
+        <UseRootNamespaceForBuildInformation>true</UseRootNamespaceForBuildInformation>
     </PropertyGroup>
+
+    <ItemGroup>
+        <CompilerVisibleProperty Include="UseRootNamespaceForBuildInformation" />
+    </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\LinkDotNet.BuildInformation\LinkDotNet.BuildInformation.csproj" 

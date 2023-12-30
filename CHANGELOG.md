@@ -6,6 +6,9 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Added
+- Option, to use the root namespace for the generated class (see README.md for more details)
+
 ### Changed
 
 - Use auto-generated header so analyzers don't complain
