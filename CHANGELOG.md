@@ -6,6 +6,11 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Changed
+
+- Use auto-generated header so analyzers don't complain
+- Made `BuildInformation` class internal if used across different assemblies
+
 ## [0.4.2] - 2023-08-29
 
 ### Changed
