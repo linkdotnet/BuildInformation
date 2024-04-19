@@ -8,10 +8,12 @@
         <AssemblyVersion>1.0</AssemblyVersion>
         <FileVersion>1.2</FileVersion>
         <UseRootNamespaceForBuildInformation>true</UseRootNamespaceForBuildInformation>
+        <AllowProjectDirectoryBuildOutput>true</AllowProjectDirectoryBuildOutput>
     </PropertyGroup>
 
     <ItemGroup>
         <CompilerVisibleProperty Include="UseRootNamespaceForBuildInformation" />
+        <CompilerVisibleProperty Include="AllowProjectDirectoryBuildOutput" />
     </ItemGroup>
 
     <ItemGroup>

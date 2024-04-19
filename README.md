@@ -21,10 +21,12 @@ By default the created class is `internal` and is not under any namespace. This 
 ```xml
 <PropertyGroup>
     <UseRootNamespaceForBuildInformation>true</UseRootNamespaceForBuildInformation>
+    <AllowProjectDirectoryBuildOutput>true</AllowProjectDirectoryBuildOutput>
 </PropertyGroup>
 
 <ItemGroup>
     <CompilerVisibleProperty Include="UseRootNamespaceForBuildInformation" />
+    <CompilerVisibleProperty Include="AllowProjectDirectoryBuildOutput" />
 </ItemGroup>
 ```
 
@@ -51,11 +53,13 @@ Console.WriteLine($"Assembly name: {BuildInformation.AssemblyName}");
 Console.WriteLine($"Target framework moniker: {BuildInformation.TargetFrameworkMoniker}");
 Console.WriteLine($"Nullability level: {BuildInformation.Nullability}");
 Console.WriteLine($"Deterministic build: {BuildInformation.Deterministic}");
+Console.WriteLine($"Analysis level: {BuildInformation.AnalysisLevel}");
+Console.WriteLine($"Project directory: {BuildInformation.ProjectDirectory}");
 ```
 
 You can also hover over the properties to get the currently held value (xmldoc support). An example output could look like this:
 ```no-class
-Build at: 24.03.2023 21:32:17
+Build at: 24.03.2024 21:32:17
 Platform: AnyCpu
 Warning level: 7
 Configuration: Debug
@@ -65,6 +69,8 @@ Assembly name: LinkDotNet.BuildInformation.Sample
 Target framework moniker: net7.0
 Nullability level: enabled
 Deterministic build: true
+Analysis level: 7.0
+Project directory: /Users/example/repo/this/Sample.csproj
 ```
 
 ## Contributing

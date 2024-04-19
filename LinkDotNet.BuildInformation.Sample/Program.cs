@@ -13,3 +13,4 @@ Console.WriteLine($"Target framework moniker: {BuildInformation.TargetFrameworkM
 Console.WriteLine($"Analysis level: {BuildInformation.Nullability}");
 Console.WriteLine($"Deterministic build: {BuildInformation.Deterministic}");
 Console.WriteLine($"Analysis level: {BuildInformation.AnalysisLevel}");
+Console.WriteLine($"Project directory: {BuildInformation.ProjectDirectory}");

@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Diagnostics;
 
 namespace LinkDotNet.BuildInformation;
@@ -28,6 +29,7 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
             var assembly = compiler.Assembly;
             var rootNamespace = GetRootNamespace(analyzer);
             analyzer.GlobalOptions.TryGetValue("build_property.effectiveanalysislevelstyle", out var analysisLevel);
+            var projectDirectory = GetProjectDirectory(analyzer);
 
             var buildInformation = new BuildInformationInfo
             {
@@ -43,6 +45,7 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                 Deterministic = compiler.Options.Deterministic,
                 RootNamespace = rootNamespace,
                 AnalysisLevel = analysisLevel ?? string.Empty,
+                ProjectDirectory = projectDirectory
             };
 
             productionContext.AddSource("LinkDotNet.BuildInformation.g", GenerateBuildInformationClass(buildInformation));
@@ -85,6 +88,19 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
         }
         
         return rootNamespaceValue;
+    }
+
+    private static string GetProjectDirectory(AnalyzerConfigOptionsProvider analyzer)
+    {
+        analyzer.GlobalOptions.TryGetValue("build_property.AllowProjectDirectoryBuildOutput", out var allowOutput);
+        if (!allowOutput?.Equals("true", StringComparison.InvariantCultureIgnoreCase) ?? true)
+        {
+            return string.Empty;
+        }
+        
+        return !analyzer.GlobalOptions.TryGetValue("build_property.projectDir", out var projectDir) 
+            ? string.Empty 
+            : projectDir;
     }
 
     private static string GenerateBuildInformationClass(BuildInformationInfo buildInformation)
@@ -170,6 +186,12 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                      /// </summary>
                      /// <remarks>Value is: {{buildInformation.AnalysisLevel}}</remarks>
                      public const string AnalysisLevel = "{{buildInformation.AnalysisLevel}}";
+                     
+                     /// <summary>
+                     /// Returns the project directory.
+                     /// </summary>
+                     /// <remarks>Value is: {{buildInformation.ProjectDirectory}}</remarks>
+                     public const string ProjectDirectory = "{{buildInformation.ProjectDirectory}}";
                  }
 
                  """;
@@ -189,5 +211,6 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
         public bool Deterministic { get; set; }
         public string RootNamespace { get; set; } = string.Empty;
         public string AnalysisLevel { get; set; } = string.Empty;
+        public string ProjectDirectory { get; set; } = string.Empty;
     }
 }
