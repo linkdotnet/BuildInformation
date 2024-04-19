@@ -6,7 +6,10 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+## [1.1.1] - 2024-04-19
+
 ### Changed
+
 - Minor version bump because of failed deployment
 
 ## [1.1.0] - 2024-04-19
@@ -60,7 +63,8 @@ The following options were added:
 
 - New assembly related objects
 
-[unreleased]: https://github.com/linkdotnet/BuildInformation/compare/1.1.0...HEAD
+[unreleased]: https://github.com/linkdotnet/BuildInformation/compare/1.1.1...HEAD
+[1.1.1]: https://github.com/linkdotnet/BuildInformation/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/linkdotnet/BuildInformation/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/linkdotnet/BuildInformation/compare/0.4.2...1.0.0
 [0.4.2]: https://github.com/linkdotnet/BuildInformation/compare/0.4.1...0.4.2
