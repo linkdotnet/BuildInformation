@@ -27,6 +27,7 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
 
             var assembly = compiler.Assembly;
             var rootNamespace = GetRootNamespace(analyzer);
+            analyzer.GlobalOptions.TryGetValue("build_property.effectiveanalysislevelstyle", out var analysisLevel);
 
             var buildInformation = new BuildInformationInfo
             {
@@ -41,6 +42,7 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                 Nullability = nullability,
                 Deterministic = compiler.Options.Deterministic,
                 RootNamespace = rootNamespace,
+                AnalysisLevel = analysisLevel ?? string.Empty,
             };
 
             productionContext.AddSource("LinkDotNet.BuildInformation.g", GenerateBuildInformationClass(buildInformation));
@@ -162,6 +164,12 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                      /// </summary>
                      /// <remarks>Value is: {{buildInformation.Deterministic.ToString().ToLowerInvariant()}}</remarks>
                      public const bool Deterministic = {{buildInformation.Deterministic.ToString().ToLowerInvariant()}};
+                     
+                     /// <summary>
+                     /// Returns the Analysis level of the application.
+                     /// </summary>
+                     /// <remarks>Value is: {{buildInformation.AnalysisLevel}}</remarks>
+                     public const string AnalysisLevel = "{{buildInformation.AnalysisLevel}}";
                  }
 
                  """;
@@ -180,5 +188,6 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
         public string Nullability { get; set; } = string.Empty;
         public bool Deterministic { get; set; }
         public string RootNamespace { get; set; } = string.Empty;
+        public string AnalysisLevel { get; set; } = string.Empty;
     }
 }

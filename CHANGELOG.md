@@ -6,6 +6,11 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Added
+
+The following options were added:
+ - `AnalysisLevel` to represent the `<AnalysisLevel>` property in the project file
+
 ## [1.0.0] - 2023-12-30
 
 ### Added

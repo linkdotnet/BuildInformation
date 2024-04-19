@@ -12,3 +12,4 @@ Console.WriteLine($"Assembly name: {BuildInformation.AssemblyName}");
 Console.WriteLine($"Target framework moniker: {BuildInformation.TargetFrameworkMoniker}");
 Console.WriteLine($"Analysis level: {BuildInformation.Nullability}");
 Console.WriteLine($"Deterministic build: {BuildInformation.Deterministic}");
+Console.WriteLine($"Analysis level: {BuildInformation.AnalysisLevel}");
