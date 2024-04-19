@@ -21,16 +21,25 @@ By default the created class is `internal` and is not under any namespace. This 
 ```xml
 <PropertyGroup>
     <UseRootNamespaceForBuildInformation>true</UseRootNamespaceForBuildInformation>
-    <AllowProjectDirectoryBuildOutput>true</AllowProjectDirectoryBuildOutput>
 </PropertyGroup>
 
 <ItemGroup>
     <CompilerVisibleProperty Include="UseRootNamespaceForBuildInformation" />
-    <CompilerVisibleProperty Include="AllowProjectDirectoryBuildOutput" />
 </ItemGroup>
 ```
 
 This will use the root namespace of the project for the generated class. This is especially helpful if the generator is used in multiple projects, that might be visible to each other.
+
+The `AllowProjectDirectoryBuildOutput` property is used to allow the generator to write the project directory into the generated class. This is disabled by default, as it might leak sensitive information.
+```xml
+<PropertyGroup>
+    <AllowProjectDirectoryBuildOutput>true</AllowProjectDirectoryBuildOutput>
+</PropertyGroup>
+
+<ItemGroup>
+    <CompilerVisibleProperty Include="AllowProjectDirectoryBuildOutput" />
+</ItemGroup>
+```
 
 ## Usage
 To use the `BuildInformation` class in your project, add the NuGet package:
