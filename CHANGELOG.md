@@ -6,64 +6,62 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+## [1.1.0] - 2024-04-19
+
 ### Added
 
 The following options were added:
- - `AnalysisLevel` to represent the `<AnalysisLevel>` property in the project file
- - `ProjectDirectory` to represent the current path to the project file
+
+- `AnalysisLevel` to represent the `<AnalysisLevel>` property in the project file
+- `ProjectDirectory` to represent the current path to the project file
 
 ## [1.0.0] - 2023-12-30
 
 ### Added
 
--   Option, to use the root namespace for the generated class (see README.md for more details)
+- Option, to use the root namespace for the generated class (see README.md for more details)
 
 ### Changed
 
--   Use auto-generated header so analyzers don't complain
--   Made `BuildInformation` class internal if used across different assemblies
+- Use auto-generated header so analyzers don't complain
+- Made `BuildInformation` class internal if used across different assemblies
 
 ## [0.4.2] - 2023-08-29
 
 ### Changed
 
--   Used meta-package for analyzers to reduce dependency errors
+- Used meta-package for analyzers to reduce dependency errors
 
 ## [0.4.1] - 2023-08-12
 
 ### Changed
 
--   `Configuration` also takes custom configuration into account
+- `Configuration` also takes custom configuration into account
 
 ## [0.4.0] - 2023-06-15
 
 ### Added
 
--   Added support for nullability analysis level
--   Added support for deterministic builds
+- Added support for nullability analysis level
+- Added support for deterministic builds
 
 ## [0.3.0] - 2023-03-24
 
 ### Added
 
--   Added framework moniker to the build information
+- Added framework moniker to the build information
 
 ## [0.2.0] - 2023-03-24
 
 ### Added
 
--   New assembly related objects
+- New assembly related objects
 
-[Unreleased]: https://github.com/linkdotnet/BuildInformation/compare/1.0.0...HEAD
-
+[unreleased]: https://github.com/linkdotnet/BuildInformation/compare/1.1.0...HEAD
+[1.1.0]: https://github.com/linkdotnet/BuildInformation/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/linkdotnet/BuildInformation/compare/0.4.2...1.0.0
-
 [0.4.2]: https://github.com/linkdotnet/BuildInformation/compare/0.4.1...0.4.2
-
 [0.4.1]: https://github.com/linkdotnet/BuildInformation/compare/0.4.0...0.4.1
-
 [0.4.0]: https://github.com/linkdotnet/BuildInformation/compare/0.3.0...0.4.0
-
 [0.3.0]: https://github.com/linkdotnet/BuildInformation/compare/0.2.0...0.3.0
-
 [0.2.0]: https://github.com/linkdotnet/BuildInformation/compare/9866bfb38171ce0b36aae085d07d15f6e2bc6ff3...0.2.0
