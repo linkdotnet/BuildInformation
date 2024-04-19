@@ -6,6 +6,9 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Changed
+- Minor version bump because of failed deployment
+
 ## [1.1.0] - 2024-04-19
 
 ### Added
