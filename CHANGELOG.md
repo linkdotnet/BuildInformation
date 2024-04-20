@@ -6,7 +6,10 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+## [1.1.2] - 2024-04-20
+
 ### Added
+
 - Added logo for nuget package
 
 ## [1.1.1] - 2024-04-19
@@ -66,7 +69,8 @@ The following options were added:
 
 - New assembly related objects
 
-[unreleased]: https://github.com/linkdotnet/BuildInformation/compare/1.1.1...HEAD
+[unreleased]: https://github.com/linkdotnet/BuildInformation/compare/1.1.2...HEAD
+[1.1.2]: https://github.com/linkdotnet/BuildInformation/compare/1.1.1...1.1.2
 [1.1.1]: https://github.com/linkdotnet/BuildInformation/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/linkdotnet/BuildInformation/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/linkdotnet/BuildInformation/compare/0.4.2...1.0.0
