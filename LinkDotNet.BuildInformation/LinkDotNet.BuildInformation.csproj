@@ -17,6 +17,7 @@
         <RepositoryUrl>https://github.com/linkdotnet/BuildInformation</RepositoryUrl>
         <PackageTags>csharp,dotnet,msbuild,roslyn</PackageTags>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageIcon>logo.png</PackageIcon>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
 

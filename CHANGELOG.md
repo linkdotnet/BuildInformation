@@ -6,6 +6,9 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Added
+- Added logo for nuget package
+
 ## [1.1.1] - 2024-04-19
 
 ### Changed
