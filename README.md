@@ -15,6 +15,8 @@ This project provides a simple and easy-to-use C# source generator that embeds b
 * Embeds the target framework moniker in your code
 * Embeds the nullability analysis level in your code
 * Embeds the deterministic build flag in your code
+* Embeds the project path where the generator is running in your code
+* Embeds the language and version (like "C# 12.0")
 
 ## Configuration
 By default the created class is `internal` and is not under any namespace. This can be changed by adding the following to your project file:
@@ -64,6 +66,7 @@ Console.WriteLine($"Nullability level: {BuildInformation.Nullability}");
 Console.WriteLine($"Deterministic build: {BuildInformation.Deterministic}");
 Console.WriteLine($"Analysis level: {BuildInformation.AnalysisLevel}");
 Console.WriteLine($"Project directory: {BuildInformation.ProjectDirectory}");
+Console.WriteLine($"Language version: {BuildInformation.LanguageVersion}");
 ```
 
 You can also hover over the properties to get the currently held value (xmldoc support). An example output could look like this:
@@ -80,6 +83,7 @@ Nullability level: enabled
 Deterministic build: true
 Analysis level: 7.0
 Project directory: /Users/example/repo/this/Sample.csproj
+Language version: C# 12.0
 ```
 
 ## Contributing

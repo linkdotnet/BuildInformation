@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Diagnostics;
+using Microsoft.CodeAnalysis.VisualBasic;
 
 namespace LinkDotNet.BuildInformation;
 
@@ -44,7 +46,8 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                 Deterministic = compiler.Options.Deterministic,
                 RootNamespace = rootNamespace,
                 AnalysisLevel = analysisLevel ?? string.Empty,
-                ProjectDirectory = projectDirectory
+                ProjectDirectory = projectDirectory,
+                LanguageVersion = GetLanguageVersionString()
             };
 
             productionContext.AddSource("LinkDotNet.BuildInformation.g", GenerateBuildInformationClass(buildInformation));
@@ -100,6 +103,11 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
         return !analyzer.GlobalOptions.TryGetValue("build_property.projectDir", out var projectDir) 
             ? string.Empty 
             : projectDir;
+    }
+
+    private static string GetLanguageVersionString()
+    {
+        return CSharpParseOptions.Default.Language + " " + CSharpParseOptions.Default.LanguageVersion.ToDisplayString();
     }
 
     private static string GenerateBuildInformationClass(BuildInformationInfo buildInformation)
@@ -191,6 +199,13 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                      /// </summary>
                      /// <remarks>Value is: {{buildInformation.ProjectDirectory}}</remarks>
                      public const string ProjectDirectory = "{{buildInformation.ProjectDirectory}}";
+                     
+                     /// <summary>
+                     /// Returns the language version the code is compiled against. This include the language (like C#) and the concrete version.
+                     /// </summary>
+                     /// <example>C# 12.0</example>
+                     /// <remarks>Value is {{buildInformation.LanguageVersion}}</remarks>
+                     public const string LanguageVersion = "{{buildInformation.LanguageVersion}}";
                  }
 
                  """;
@@ -211,5 +226,6 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
         public string RootNamespace { get; set; } = string.Empty;
         public string AnalysisLevel { get; set; } = string.Empty;
         public string ProjectDirectory { get; set; } = string.Empty;
+        public string LanguageVersion { get; set; } = string.Empty;
     }
 }
