@@ -105,10 +105,8 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
             : projectDir;
     }
 
-    private static string GetLanguageVersionString()
-    {
-        return CSharpParseOptions.Default.Language + " " + CSharpParseOptions.Default.LanguageVersion.ToDisplayString();
-    }
+    private static string GetLanguageVersionString() 
+        => CSharpParseOptions.Default.Language + " " + CSharpParseOptions.Default.LanguageVersion.ToDisplayString();
 
     private static string GenerateBuildInformationClass(BuildInformationInfo buildInformation)
     {
