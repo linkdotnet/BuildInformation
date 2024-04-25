@@ -66,6 +66,7 @@ Console.WriteLine($"Nullability level: {BuildInformation.Nullability}");
 Console.WriteLine($"Deterministic build: {BuildInformation.Deterministic}");
 Console.WriteLine($"Analysis level: {BuildInformation.AnalysisLevel}");
 Console.WriteLine($"Project directory: {BuildInformation.ProjectDirectory}");
+Console.WriteLine($"Language: {BuildInformation.Language}");
 Console.WriteLine($"Language version: {BuildInformation.LanguageVersion}");
 ```
 
@@ -83,7 +84,8 @@ Nullability level: enabled
 Deterministic build: true
 Analysis level: 7.0
 Project directory: /Users/example/repo/this/Sample.csproj
-Language version: C# 12.0
+Language: C#
+Langugage version: 12.0
 ```
 
 ## Contributing

@@ -6,6 +6,9 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Added
+- Language and LanguageVersion properties to the BuildInformation (i.e. C# 12.0)
+
 ## [1.1.2] - 2024-04-20
 
 ### Added
