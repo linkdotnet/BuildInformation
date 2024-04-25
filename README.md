@@ -16,7 +16,7 @@ This project provides a simple and easy-to-use C# source generator that embeds b
 * Embeds the nullability analysis level in your code
 * Embeds the deterministic build flag in your code
 * Embeds the project path where the generator is running in your code
-* Embeds the language and version (like "C# 12.0")
+* Embeds the language and language version (like "C#" and "12.0")
 
 ## Configuration
 By default the created class is `internal` and is not under any namespace. This can be changed by adding the following to your project file:
