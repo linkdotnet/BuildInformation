@@ -6,6 +6,9 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Changed
+- Fixed a wrong example tag which shows a language version instead of the language itself
+
 ## [1.2.0] - 2024-04-25
 
 ### Added

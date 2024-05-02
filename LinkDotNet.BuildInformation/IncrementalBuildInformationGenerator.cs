@@ -198,7 +198,7 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                      /// <summary>
                      /// Returns the language the code is compiled against (like C# or F#).
                      /// </summary>
-                     /// <example>12.0</example>
+                     /// <example>C#</example>
                      /// <remarks>Value is {{buildInformation.Language}}</remarks>
                      public const string Language = "{{buildInformation.Language}}";
                      
