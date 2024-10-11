@@ -6,6 +6,8 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+## [1.3.0] - 2024-10-11
+
 ### Added
 
 - Added support for git information. Please see the README.md for more details and how to activate it.
@@ -85,7 +87,8 @@ The following options were added:
 
 - New assembly related objects
 
-[unreleased]: https://github.com/linkdotnet/BuildInformation/compare/1.2.1...HEAD
+[unreleased]: https://github.com/linkdotnet/BuildInformation/compare/1.3.0...HEAD
+[1.3.0]: https://github.com/linkdotnet/BuildInformation/compare/1.2.1...1.3.0
 [1.2.1]: https://github.com/linkdotnet/BuildInformation/compare/1.2.0...1.2.1
 [1.2.0]: https://github.com/linkdotnet/BuildInformation/compare/1.1.2...1.2.0
 [1.1.2]: https://github.com/linkdotnet/BuildInformation/compare/1.1.1...1.1.2
