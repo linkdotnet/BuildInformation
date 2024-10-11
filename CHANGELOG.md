@@ -6,6 +6,10 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Added
+
+- Added support for git information. Please see the README.md for more details and how to activate it.
+
 ## [1.2.1] - 2024-05-02
 
 ### Changed

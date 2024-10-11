@@ -16,3 +16,11 @@ Console.WriteLine($"Analysis level: {BuildInformation.AnalysisLevel}");
 Console.WriteLine($"Project directory: {BuildInformation.ProjectDirectory}");
 Console.WriteLine($"Language: {BuildInformation.Language}");
 Console.WriteLine($"Language version: {BuildInformation.LanguageVersion}");
+
+Console.WriteLine();
+Console.WriteLine("Git information:");
+Console.WriteLine($"Branch: {GitInformation.Branch}");
+Console.WriteLine($"Commit: {GitInformation.Commit}");
+Console.WriteLine($"Short commit: {GitInformation.ShortCommit}");
+Console.WriteLine($"Nearest tag: {GitInformation.NearestTag}");
+Console.WriteLine($"Detailed tag description: {GitInformation.DetailedTagDescription}");

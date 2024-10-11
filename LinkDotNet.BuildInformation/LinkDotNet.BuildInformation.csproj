@@ -15,13 +15,17 @@
         <Description>Supplies information about the build like build time.</Description>
         <PackageProjectUrl>https://github.com/linkdotnet/BuildInformation</PackageProjectUrl>
         <RepositoryUrl>https://github.com/linkdotnet/BuildInformation</RepositoryUrl>
-        <PackageTags>csharp,dotnet,msbuild,roslyn</PackageTags>
+        <PackageTags>csharp,dotnet,msbuild,roslyn,git,build information</PackageTags>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageIcon>logo.png</PackageIcon>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Meziantou.Polyfill" Version="1.0.40">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="Microsoft.CodeAnalysis" Version="4.10.0" PrivateAssets="all" />
     </ItemGroup>
 

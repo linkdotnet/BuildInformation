@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics;
+using System.Reflection;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Diagnostics;
@@ -49,8 +50,13 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                 Language = CSharpParseOptions.Default.Language,
                 LanguageVersion = CSharpParseOptions.Default.LanguageVersion.ToDisplayString(),
             };
+            
+            analyzer.GlobalOptions.TryGetValue("build_property.IncludeGitInformation", out var useGitInfoOption);
+            var useGitInfo = useGitInfoOption?.Equals("true", StringComparison.InvariantCultureIgnoreCase) ?? false;
 
-            productionContext.AddSource("LinkDotNet.BuildInformation.g", GenerateBuildInformationClass(buildInformation));
+            var gitInfo = GitRetriever.GetGitInformation(useGitInfo);
+
+            productionContext.AddSource("LinkDotNet.BuildInformation.g", GenerateBuildInformationClass(buildInformation, gitInfo));
         });
     }
     
@@ -105,7 +111,9 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
             : projectDir;
     }
 
-    private static string GenerateBuildInformationClass(BuildInformationInfo buildInformation)
+    private static string GenerateBuildInformationClass(
+        BuildInformationInfo buildInformation,
+        GitInformationInfo gitInfo)
     {
         var rootNamespace = string.IsNullOrEmpty(buildInformation.RootNamespace)
             ? string.Empty
@@ -208,6 +216,39 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                      /// <example>12.0</example>
                      /// <remarks>Value is {{buildInformation.LanguageVersion}}</remarks>
                      public const string LanguageVersion = "{{buildInformation.LanguageVersion}}";
+                 }
+                 
+                 internal static class GitInformation
+                 {
+                     /// <summary>
+                     /// Returns the branch of the git repository.
+                     /// </summary>
+                     /// <remarks>Value is: {{gitInfo.Branch}}</remarks>   
+                     public const string Branch = "{{gitInfo.Branch}}";
+                     
+                     /// <summary>
+                     /// Returns the commit hash of the git repository.
+                     /// </summary>
+                     /// <remarks>Value is: {{gitInfo.Commit}}</remarks>
+                     public const string Commit = "{{gitInfo.Commit}}";
+                     
+                     /// <summary>
+                     /// Returns the short commit hash of the git repository.
+                     /// </summary>
+                     /// <remarks>Value is: {{gitInfo.ShortCommit}}</remarks>
+                     public const string ShortCommit = "{{gitInfo.ShortCommit}}";
+                     
+                     /// <summary>
+                     /// Returns the nearest tag of the git repository. This uses <c>git describe --tags --abbrev=0</c>.
+                     /// </summary>
+                     /// <remarks>Value is: {{gitInfo.NearestTag}}</remarks>
+                     public const string NearestTag = "{{gitInfo.NearestTag}}";
+                     
+                     /// <summary>
+                     /// Returns the detailed tag description of the git repository. This uses <c>git describe --tags</c>.
+                     /// </summary>
+                     /// <remarks>Value is: {{gitInfo.DetailedTagDescription}}</remarks>
+                     public const string DetailedTagDescription = "{{gitInfo.DetailedTagDescription}}";
                  }
                  """;
     }
