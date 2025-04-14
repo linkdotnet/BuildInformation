@@ -37,8 +37,8 @@ jobs:
       uses: actions/setup-dotnet@v4.3.0
       with:
         dotnet-version: | 
-          6.0.x
-          7.0.x      
+          8.0.x
+          9.0.x      
 
     - name: Update CHANGELOG file
       uses: thomaseizinger/keep-a-changelog-new-release@3.1.0
