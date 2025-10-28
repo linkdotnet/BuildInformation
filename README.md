@@ -43,32 +43,6 @@ The `AllowProjectDirectoryBuildOutput` property is used to allow the generator t
 </ItemGroup>
 ```
 
-### Git Information
-By default, the generator does not include git information. If you want to include the git information, you can add the following to your project file:
-
-```xml
-<PropertyGroup>
-    <IncludeGitInformation>true</IncludeGitInformation>
-</PropertyGroup>
-
-<ItemGroup>
-    <CompilerVisibleProperty Include="IncludeGitInformation" />
-</ItemGroup>
-```
-
-This will fill the `GitInformation` class with the following properties:
-```csharp
-Console.WriteLine("Git information:");
-Console.WriteLine($"Branch: {GitInformation.Branch}");
-Console.WriteLine($"Commit: {GitInformation.Commit}");
-Console.WriteLine($"Short commit: {GitInformation.ShortCommit}");
-Console.WriteLine($"Nearest tag: {GitInformation.NearestTag}");
-Console.WriteLine($"Detailed tag description: {GitInformation.DetailedTagDescription}");
-```
-
-This will spawn a `git` process to get the information. 
-Therefore, git has to be accessible from the command line. Be advised, that it will increase your build time slightly.
-
 ## Usage
 To use the `BuildInformation` class in your project, add the NuGet package:
 

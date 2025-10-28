@@ -6,6 +6,11 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+`v2.0` release which drops the Git Information, as the API was deprecated.
+
+### Breaking Changes
+- Removed Git Information support and related properties
+
 ## [1.3.0] - 2024-10-11
 
 ### Added
