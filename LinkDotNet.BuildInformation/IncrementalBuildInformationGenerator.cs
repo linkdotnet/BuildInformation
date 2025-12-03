@@ -136,7 +136,7 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                  using System;
                  using System.Globalization;
                  {{rootNamespace}}
-                 internal static class BuildInformation
+                 internal static partial class BuildInformation
                  {
                      /// <summary>
                      /// Returns the build date (UTC) in ISO 8601 format.
@@ -237,7 +237,8 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                      public const string CompilerVersion = "{{buildInformation.CompilerVersion}}";
                      
                      /// <summary>
-                     /// Returns the .NET runtime/framework version on which the build occurred.
+                     /// Returns the .NET runtime/framework version on which the build occurred (.NET SDK version).
+                     /// This can differ from <see cref="TargetFrameworkMoniker"/> which indicates the target framework for which the code will run.
                      /// </summary>
                      /// <remarks>Value is: {{buildInformation.DotNetSdkVersion}}</remarks>
                      public const string DotNetSdkVersion = "{{buildInformation.DotNetSdkVersion}}";
