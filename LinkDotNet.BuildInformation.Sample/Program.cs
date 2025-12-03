@@ -16,3 +16,5 @@ Console.WriteLine($"Analysis level: {BuildInformation.AnalysisLevel}");
 Console.WriteLine($"Project directory: {BuildInformation.ProjectDirectory}");
 Console.WriteLine($"Language: {BuildInformation.Language}");
 Console.WriteLine($"Language version: {BuildInformation.LanguageVersion}");
+Console.WriteLine($"Compiler version: {BuildInformation.CompilerVersion}");
+Console.WriteLine($"DotNet SDK version: {BuildInformation.DotNetSdkVersion}");

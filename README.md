@@ -62,30 +62,34 @@ Console.WriteLine($"Assembly version: {BuildInformation.AssemblyVersion}");
 Console.WriteLine($"Assembly file version: {BuildInformation.AssemblyFileVersion}");
 Console.WriteLine($"Assembly name: {BuildInformation.AssemblyName}");
 Console.WriteLine($"Target framework moniker: {BuildInformation.TargetFrameworkMoniker}");
-Console.WriteLine($"Nullability level: {BuildInformation.Nullability}");
+Console.WriteLine($"Analysis level: {BuildInformation.Nullability}");
 Console.WriteLine($"Deterministic build: {BuildInformation.Deterministic}");
 Console.WriteLine($"Analysis level: {BuildInformation.AnalysisLevel}");
 Console.WriteLine($"Project directory: {BuildInformation.ProjectDirectory}");
 Console.WriteLine($"Language: {BuildInformation.Language}");
 Console.WriteLine($"Language version: {BuildInformation.LanguageVersion}");
+Console.WriteLine($"Compiler version: {BuildInformation.CompilerVersion}");
+Console.WriteLine($"DotNet SDK version: {BuildInformation.DotNetSdkVersion}");
 ```
 
 You can also hover over the properties to get the currently held value (xmldoc support). An example output could look like this:
 ```no-class
-Build at: 24.03.2024 21:32:17
+Build at: 03/12/2025 08:25:41
 Platform: AnyCpu
-Warning level: 7
-Configuration: Debug
+Warning level: 8
+Configuration: Release
 Assembly version: 1.0
 Assembly file version: 1.2
 Assembly name: LinkDotNet.BuildInformation.Sample
-Target framework moniker: net7.0
-Nullability level: enabled
-Deterministic build: true
-Analysis level: 7.0
+Target framework moniker: net8.0
+Analysis level: Enable
+Deterministic build: True
+Analysis level: 8.0
 Project directory: /Users/example/repo/this/Sample.csproj
 Language: C#
-Langugage version: 12.0
+Language version: 14.0
+Compiler version: 5.0.0.0
+DotNet SDK version: .NET 10.0.0
 ```
 
 ## Contributing

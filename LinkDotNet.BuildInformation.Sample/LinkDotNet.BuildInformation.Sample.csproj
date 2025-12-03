@@ -11,13 +11,11 @@
         <!-- Custom properties of LinkDotNet.BuildInformation -->
         <UseRootNamespaceForBuildInformation>true</UseRootNamespaceForBuildInformation>
         <AllowProjectDirectoryBuildOutput>true</AllowProjectDirectoryBuildOutput>
-        <IncludeGitInformation>true</IncludeGitInformation>
     </PropertyGroup>
 
     <ItemGroup Label="Needed so that the source generator can access the variables">
         <CompilerVisibleProperty Include="UseRootNamespaceForBuildInformation" />
         <CompilerVisibleProperty Include="AllowProjectDirectoryBuildOutput" />
-        <CompilerVisibleProperty Include="IncludeGitInformation" />
     </ItemGroup>
 
     <ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Diagnostics;
@@ -31,10 +32,14 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
             var rootNamespace = GetRootNamespace(analyzer);
             analyzer.GlobalOptions.TryGetValue("build_property.effectiveanalysislevelstyle", out var analysisLevel);
             var projectDirectory = GetProjectDirectory(analyzer);
+            
+            var buildAtUtc = DateTime.UtcNow;
+            var buildAtIso = buildAtUtc.ToString("O");
+            var isReleaseBuild = compiler.Options.OptimizationLevel == OptimizationLevel.Release;
 
             var buildInformation = new BuildInformationInfo
             {
-                BuildAt = DateTime.UtcNow.ToString("O"),
+                BuildAt = buildAtIso,
                 Platform = compiler.Options.Platform.ToString(),
                 WarningLevel = compiler.Options.WarningLevel,
                 Configuration = configuration,
@@ -49,10 +54,10 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                 ProjectDirectory = projectDirectory,
                 Language = CSharpParseOptions.Default.Language,
                 LanguageVersion = CSharpParseOptions.Default.LanguageVersion.ToDisplayString(),
+                IsReleaseBuild = isReleaseBuild,
+                CompilerVersion = typeof(CSharpCompilation).Assembly.GetName().Version?.ToString() ?? "Unknown",
+                DotNetSdkVersion = GetDotNetSdkVersion(),
             };
-            
-            analyzer.GlobalOptions.TryGetValue("build_property.IncludeGitInformation", out var useGitInfoOption);
-            var useGitInfo = useGitInfoOption?.Equals("true", StringComparison.InvariantCultureIgnoreCase) ?? false;
 
             productionContext.AddSource("LinkDotNet.BuildInformation.g", GenerateBuildInformationClass(buildInformation));
         });
@@ -76,6 +81,11 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
             ? assemblyVersionAttribute.ConstructorArguments[0].Value!.ToString()
             : string.Empty;
         return assemblyVersion;
+    }
+    
+    private static string GetDotNetSdkVersion()
+    {
+        return RuntimeInformation.FrameworkDescription;
     }
     
     private static string GetRootNamespace(AnalyzerConfigOptionsProvider analyzer)
@@ -129,7 +139,7 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                  internal static class BuildInformation
                  {
                      /// <summary>
-                     /// Returns the build date (UTC).
+                     /// Returns the build date (UTC) in ISO 8601 format.
                      /// </summary>
                      /// <remarks>Value is: {{buildInformation.BuildAt}}</remarks>
                      public static readonly DateTime BuildAt = DateTime.ParseExact("{{buildInformation.BuildAt}}", "O", CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind);
@@ -213,6 +223,24 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                      /// <example>12.0</example>
                      /// <remarks>Value is {{buildInformation.LanguageVersion}}</remarks>
                      public const string LanguageVersion = "{{buildInformation.LanguageVersion}}";
+                     
+                     /// <summary>
+                     /// Returns whether the build is in Release mode.
+                     /// </summary>
+                     /// <remarks>Value is: {{buildInformation.IsReleaseBuild.ToString().ToLowerInvariant()}}</remarks>
+                     public const bool IsReleaseBuild = {{buildInformation.IsReleaseBuild.ToString().ToLowerInvariant()}};
+                     
+                     /// <summary>
+                     /// Returns the Roslyn/C# compiler version used during the build.
+                     /// </summary>
+                     /// <remarks>Value is: {{buildInformation.CompilerVersion}}</remarks>
+                     public const string CompilerVersion = "{{buildInformation.CompilerVersion}}";
+                     
+                     /// <summary>
+                     /// Returns the .NET runtime/framework version on which the build occurred.
+                     /// </summary>
+                     /// <remarks>Value is: {{buildInformation.DotNetSdkVersion}}</remarks>
+                     public const string DotNetSdkVersion = "{{buildInformation.DotNetSdkVersion}}";
                  }
                  """;
     }
@@ -234,5 +262,8 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
         public string ProjectDirectory { get; set; } = string.Empty;
         public string Language { get; set; } = string.Empty;
         public string LanguageVersion { get; set; } = string.Empty;
+        public bool IsReleaseBuild { get; set; }
+        public string CompilerVersion { get; set; } = string.Empty;
+        public string DotNetSdkVersion { get; set; } = string.Empty;
     }
 }
