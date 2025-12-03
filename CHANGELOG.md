@@ -6,13 +6,17 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+## [2.0.0] - 2025-12-03
+
 `v2.0` release which drops the Git Information, as the API was deprecated.
 
 ### Added
+
 - New properties for .SDK Version and Compiler Version
 - Made object `partial` so it can be easily extended.
 
 ### Breaking Changes / Removed
+
 - Removed Git Information support and related properties
 
 ## [1.3.0] - 2024-10-11
@@ -96,7 +100,8 @@ The following options were added:
 
 - New assembly related objects
 
-[unreleased]: https://github.com/linkdotnet/BuildInformation/compare/1.3.0...HEAD
+[unreleased]: https://github.com/linkdotnet/BuildInformation/compare/2.0.0...HEAD
+[2.0.0]: https://github.com/linkdotnet/BuildInformation/compare/1.3.0...2.0.0
 [1.3.0]: https://github.com/linkdotnet/BuildInformation/compare/1.2.1...1.3.0
 [1.2.1]: https://github.com/linkdotnet/BuildInformation/compare/1.2.0...1.2.1
 [1.2.0]: https://github.com/linkdotnet/BuildInformation/compare/1.1.2...1.2.0
