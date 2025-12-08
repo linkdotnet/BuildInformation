@@ -9,6 +9,8 @@ Console.WriteLine($"Configuration: {BuildInformation.Configuration}");
 Console.WriteLine($"Assembly version: {BuildInformation.AssemblyVersion}");
 Console.WriteLine($"Assembly file version: {BuildInformation.AssemblyFileVersion}");
 Console.WriteLine($"Assembly name: {BuildInformation.AssemblyName}");
+Console.WriteLine($"Assembly copyright: {BuildInformation.AssemblyCopyright}");
+Console.WriteLine($"Assembly company: {BuildInformation.AssemblyCompany}");
 Console.WriteLine($"Target framework moniker: {BuildInformation.TargetFrameworkMoniker}");
 Console.WriteLine($"Analysis level: {BuildInformation.Nullability}");
 Console.WriteLine($"Deterministic build: {BuildInformation.Deterministic}");

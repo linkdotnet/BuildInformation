@@ -11,6 +11,8 @@
         <!-- Custom properties of LinkDotNet.BuildInformation -->
         <UseRootNamespaceForBuildInformation>true</UseRootNamespaceForBuildInformation>
         <AllowProjectDirectoryBuildOutput>true</AllowProjectDirectoryBuildOutput>
+        <Copyright>LinkDotNet 2025</Copyright>
+        <Company>LinkDotNet</Company>
     </PropertyGroup>
 
     <ItemGroup Label="Needed so that the source generator can access the variables">

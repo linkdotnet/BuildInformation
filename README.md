@@ -61,6 +61,8 @@ Console.WriteLine($"Configuration: {BuildInformation.Configuration}");
 Console.WriteLine($"Assembly version: {BuildInformation.AssemblyVersion}");
 Console.WriteLine($"Assembly file version: {BuildInformation.AssemblyFileVersion}");
 Console.WriteLine($"Assembly name: {BuildInformation.AssemblyName}");
+Console.WriteLine($"Assembly copyright: {BuildInformation.AssemblyCopyright}");
+Console.WriteLine($"Assembly company: {BuildInformation.AssemblyCompany}");
 Console.WriteLine($"Target framework moniker: {BuildInformation.TargetFrameworkMoniker}");
 Console.WriteLine($"Analysis level: {BuildInformation.Nullability}");
 Console.WriteLine($"Deterministic build: {BuildInformation.Deterministic}");
@@ -74,13 +76,15 @@ Console.WriteLine($"DotNet SDK version: {BuildInformation.DotNetSdkVersion}");
 
 You can also hover over the properties to get the currently held value (xmldoc support). An example output could look like this:
 ```no-class
-Build at: 03/12/2025 08:25:41
+Build at: 08/12/2025 11:51:53
 Platform: AnyCpu
 Warning level: 8
 Configuration: Release
 Assembly version: 1.0
 Assembly file version: 1.2
 Assembly name: LinkDotNet.BuildInformation.Sample
+Assembly copyright: LinkDotNet 2025
+Assembly company: LinkDotNet
 Target framework moniker: net8.0
 Analysis level: Enable
 Deterministic build: True

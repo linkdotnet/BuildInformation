@@ -6,6 +6,10 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Added
+
+- Added AssemblyCopyright and AssemblyCompany properties to the BuildInformation class.
+
 ## [2.0.0] - 2025-12-03
 
 `v2.0` release which drops the Git Information, as the API was deprecated.

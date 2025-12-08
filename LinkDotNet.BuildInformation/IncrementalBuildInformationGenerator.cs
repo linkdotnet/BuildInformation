@@ -46,6 +46,8 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                 AssemblyVersion = GetAssemblyVersion(assembly) ?? string.Empty,
                 AssemblyFileVersion = GetAssemblyFileVersion(assembly) ?? string.Empty,
                 AssemblyName = assembly.Name,
+                AssemblyCopyright = GetAssemblyCopyright(assembly) ?? string.Empty,
+                AssemblyCompany = GetAssemblyCompany(assembly) ?? string.Empty,
                 TargetFrameworkMoniker = targetFrameworkValue ?? string.Empty,
                 Nullability = nullability,
                 Deterministic = compiler.Options.Deterministic,
@@ -66,7 +68,7 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
     private static string? GetAssemblyFileVersion(ISymbol assembly)
     {
         var assemblyFileVersionAttribute = assembly.GetAttributes()
-            .FirstOrDefault(attr => attr.AttributeClass?.Name == "AssemblyFileVersionAttribute");
+            .FirstOrDefault(attr => attr.AttributeClass?.Name == nameof(AssemblyFileVersionAttribute));
         var assemblyFileVersion = assemblyFileVersionAttribute is not null
             ? assemblyFileVersionAttribute.ConstructorArguments[0].Value!.ToString()
             : string.Empty;
@@ -76,11 +78,31 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
     private static string? GetAssemblyVersion(ISymbol assembly)
     {
         var assemblyVersionAttribute = assembly.GetAttributes()
-            .FirstOrDefault(attr => attr.AttributeClass?.Name == "AssemblyVersionAttribute");
+            .FirstOrDefault(attr => attr.AttributeClass?.Name == nameof(AssemblyVersionAttribute));
         var assemblyVersion = assemblyVersionAttribute is not null
             ? assemblyVersionAttribute.ConstructorArguments[0].Value!.ToString()
             : string.Empty;
         return assemblyVersion;
+    }
+    
+    private static string? GetAssemblyCopyright(ISymbol assembly)
+    {
+        var assemblyCopyrightAttribute = assembly.GetAttributes()
+            .FirstOrDefault(attr => attr.AttributeClass?.Name == nameof(AssemblyCopyrightAttribute));
+        var assemblyCopyright = assemblyCopyrightAttribute is not null
+            ? assemblyCopyrightAttribute.ConstructorArguments[0].Value!.ToString()
+            : string.Empty;
+        return assemblyCopyright;
+    }
+    
+    private static string? GetAssemblyCompany(ISymbol assembly)
+    {
+        var assemblyCompanyAttribute = assembly.GetAttributes()
+            .FirstOrDefault(attr => attr.AttributeClass?.Name == nameof(AssemblyCompanyAttribute));
+        var assemblyCompany = assemblyCompanyAttribute is not null
+            ? assemblyCompanyAttribute.ConstructorArguments[0].Value!.ToString()
+            : string.Empty;
+        return assemblyCompany;
     }
     
     private static string GetDotNetSdkVersion()
@@ -181,6 +203,18 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                      public const string AssemblyName = "{{buildInformation.AssemblyName}}";
                  
                      /// <summary>
+                     /// Returns the assembly copyright.
+                     /// </summary>
+                     /// <remarks>Value is: {{buildInformation.AssemblyCopyright}}</remarks>
+                     public const string AssemblyCopyright = "{{buildInformation.AssemblyCopyright}}";
+                 
+                     /// <summary>
+                     /// Returns the assembly company.
+                     /// </summary>
+                     /// <remarks>Value is: {{buildInformation.AssemblyCompany}}</remarks>
+                     public const string AssemblyCompany = "{{buildInformation.AssemblyCompany}}";
+                 
+                     /// <summary>
                      /// Returns the target framework moniker.
                      /// </summary>
                      /// <remarks>Value is: {{buildInformation.TargetFrameworkMoniker}}</remarks>
@@ -255,6 +289,8 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
         public string AssemblyVersion { get; set; } = string.Empty;
         public string AssemblyFileVersion { get; set; } = string.Empty;
         public string AssemblyName { get; set; } = string.Empty;
+        public string AssemblyCopyright { get; set; } = string.Empty;
+        public string AssemblyCompany { get; set; } = string.Empty;
         public string TargetFrameworkMoniker { get; set; } = string.Empty;
         public string Nullability { get; set; } = string.Empty;
         public bool Deterministic { get; set; }
