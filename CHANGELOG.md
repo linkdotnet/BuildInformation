@@ -6,6 +6,9 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Fixed
+- Use build properties for configuration to detect custom configurations properly.
+
 ## [2.1.1] - 2025-12-09
 
 ### Fixed
