@@ -6,6 +6,8 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+## [2.1.1] - 2025-12-09
+
 ### Fixed
 
 - Issue with detecting configuration. Reported by [@Sella-GH](https://github.com/Sella-GH) in #69.
@@ -110,7 +112,8 @@ The following options were added:
 
 - New assembly related objects
 
-[unreleased]: https://github.com/linkdotnet/BuildInformation/compare/2.1.0...HEAD
+[unreleased]: https://github.com/linkdotnet/BuildInformation/compare/2.1.1...HEAD
+[2.1.1]: https://github.com/linkdotnet/BuildInformation/compare/2.1.0...2.1.1
 [2.1.0]: https://github.com/linkdotnet/BuildInformation/compare/2.0.0...2.1.0
 [2.0.0]: https://github.com/linkdotnet/BuildInformation/compare/1.3.0...2.0.0
 [1.3.0]: https://github.com/linkdotnet/BuildInformation/compare/1.2.1...1.3.0
