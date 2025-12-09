@@ -6,6 +6,10 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Fixed
+
+- Issue with detecting configuration. Reported by [@Sella-GH](https://github.com/Sella-GH) in #69.
+
 ## [2.1.0] - 2025-12-08
 
 ### Added

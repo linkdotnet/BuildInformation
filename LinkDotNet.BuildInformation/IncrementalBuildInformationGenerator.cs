@@ -24,9 +24,7 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
 
             analyzer.GlobalOptions.TryGetValue("build_property.TargetFramework", out var targetFrameworkValue);
             var nullability = compiler.Options.NullableContextOptions.ToString();
-            var configuration =
-                Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyConfigurationAttribute>()?.Configuration ??
-                compiler.Options.OptimizationLevel.ToString();
+            var configuration = compiler.Options.OptimizationLevel.ToString();
 
             var assembly = compiler.Assembly;
             var rootNamespace = GetRootNamespace(analyzer);
