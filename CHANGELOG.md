@@ -6,7 +6,10 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+## [2.1.2] - 2025-12-09
+
 ### Fixed
+
 - Use build properties for configuration to detect custom configurations properly.
 
 ## [2.1.1] - 2025-12-09
@@ -115,7 +118,8 @@ The following options were added:
 
 - New assembly related objects
 
-[unreleased]: https://github.com/linkdotnet/BuildInformation/compare/2.1.1...HEAD
+[unreleased]: https://github.com/linkdotnet/BuildInformation/compare/2.1.2...HEAD
+[2.1.2]: https://github.com/linkdotnet/BuildInformation/compare/2.1.1...2.1.2
 [2.1.1]: https://github.com/linkdotnet/BuildInformation/compare/2.1.0...2.1.1
 [2.1.0]: https://github.com/linkdotnet/BuildInformation/compare/2.0.0...2.1.0
 [2.0.0]: https://github.com/linkdotnet/BuildInformation/compare/1.3.0...2.0.0
