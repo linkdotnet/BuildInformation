@@ -20,3 +20,10 @@ Console.WriteLine($"Language: {BuildInformation.Language}");
 Console.WriteLine($"Language version: {BuildInformation.LanguageVersion}");
 Console.WriteLine($"Compiler version: {BuildInformation.CompilerVersion}");
 Console.WriteLine($"DotNet SDK version: {BuildInformation.DotNetSdkVersion}");
+
+// New GitInformation class
+Console.WriteLine("\n--- Git Information ---");
+Console.WriteLine($"Commit Hash: {GitInformation.CommitHash}");
+Console.WriteLine($"Short Commit Hash: {GitInformation.ShortCommitHash}");
+Console.WriteLine($"Branch: {GitInformation.Branch}");
+Console.WriteLine($"Tag: {GitInformation.Tag}");
