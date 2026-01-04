@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.IO;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Diagnostics;
@@ -37,7 +36,7 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
             var buildAtIso = buildAtUtc.ToString("O");
             var isReleaseBuild = compiler.Options.OptimizationLevel == OptimizationLevel.Release;
 
-            var gitInfo = GetGitInformation(analyzer, projectDirectory);
+            var gitInfo = GetGitInformation(analyzer);
             
             var buildInformation = new BuildInformationInfo
             {
@@ -148,7 +147,7 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
             : projectDir;
     }
 
-    private static GitInfo GetGitInformation(AnalyzerConfigOptionsProvider analyzer, string projectDirectory)
+    private static GitInfo GetGitInformation(AnalyzerConfigOptionsProvider analyzer)
     {
         // Try to get git information from SourceLink MSBuild properties first
         // These properties are typically provided by Microsoft.SourceLink.* packages
