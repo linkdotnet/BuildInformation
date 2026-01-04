@@ -155,25 +155,32 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
         analyzer.GlobalOptions.TryGetValue("build_property.SourceRevisionId", out var commitHash);
         analyzer.GlobalOptions.TryGetValue("build_property.SourceBranch", out var branch);
         
-        var shortCommitHash = string.Empty;
-        if (!string.IsNullOrEmpty(commitHash) && commitHash!.Length >= 7)
-        {
-            shortCommitHash = commitHash.Substring(0, 7);
-        }
-        
-        // Try additional common git-related properties
+        // Try alternative property names that might be set by CI/CD systems or SourceLink
         if (string.IsNullOrEmpty(commitHash))
         {
+            // Check for common CI/CD environment variable alternatives
             analyzer.GlobalOptions.TryGetValue("build_property.GitCommitId", out commitHash);
-            if (!string.IsNullOrEmpty(commitHash) && commitHash!.Length >= 7)
-            {
-                shortCommitHash = commitHash.Substring(0, 7);
-            }
+        }
+        
+        if (string.IsNullOrEmpty(commitHash))
+        {
+            analyzer.GlobalOptions.TryGetValue("build_property.GitCommitHash", out commitHash);
         }
         
         if (string.IsNullOrEmpty(branch))
         {
             analyzer.GlobalOptions.TryGetValue("build_property.RepositoryBranch", out branch);
+        }
+        
+        if (string.IsNullOrEmpty(branch))
+        {
+            analyzer.GlobalOptions.TryGetValue("build_property.GitBranch", out branch);
+        }
+        
+        var shortCommitHash = string.Empty;
+        if (!string.IsNullOrEmpty(commitHash) && commitHash!.Length >= 7)
+        {
+            shortCommitHash = commitHash.Substring(0, 7);
         }
         
         // Try to find tag for current commit

@@ -17,6 +17,7 @@ This project provides a simple and easy-to-use C# source generator that embeds b
 * Embeds the deterministic build flag in your code
 * Embeds the project path where the generator is running in your code
 * Embeds the language and language version (like "C#" and "12.0")
+* Embeds Git information (commit hash, branch, tag) with zero configuration
 
 ## Configuration
 By default the created class is `internal` and is not under any namespace. This can be changed by adding the following to your project file:
@@ -95,6 +96,62 @@ Language version: 14.0
 Compiler version: 5.0.0.0
 DotNet SDK version: .NET 10.0.0
 ```
+
+## Git Information
+
+The package also generates a `GitInformation` class with **zero configuration** that provides access to Git repository information:
+
+```csharp
+using System;
+
+Console.WriteLine($"Commit Hash: {GitInformation.CommitHash}");
+Console.WriteLine($"Short Commit Hash: {GitInformation.ShortCommitHash}");
+Console.WriteLine($"Branch: {GitInformation.Branch}");
+Console.WriteLine($"Tag: {GitInformation.Tag}");
+```
+
+### Properties
+
+* `CommitHash` - The full Git commit SHA (40 characters)
+* `ShortCommitHash` - The short Git commit SHA (first 7 characters)
+* `Branch` - The name of the current Git branch
+* `Tag` - The Git tag associated with the current commit (if any)
+
+By default, these properties will be **empty strings** as no additional configuration is required. To populate these values, you can use one of the following approaches:
+
+### Option 1: Using Microsoft.SourceLink (Recommended)
+
+Add the appropriate SourceLink package for your Git provider:
+
+```xml
+<ItemGroup>
+  <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
+    <PrivateAssets>all</PrivateAssets>
+    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+  </PackageReference>
+</ItemGroup>
+```
+
+For other Git providers:
+* `Microsoft.SourceLink.GitLab` - For GitLab
+* `Microsoft.SourceLink.Bitbucket.Git` - For Bitbucket
+* `Microsoft.SourceLink.AzureRepos.Git` - For Azure Repos
+
+### Option 2: Manual Configuration
+
+You can manually set MSBuild properties that the generator will read:
+
+```xml
+<PropertyGroup>
+  <SourceRevisionId>$(YOUR_COMMIT_HASH)</SourceRevisionId>
+  <SourceBranch>$(YOUR_BRANCH_NAME)</SourceBranch>
+  <GitTag>$(YOUR_TAG_NAME)</GitTag>
+</PropertyGroup>
+```
+
+This is useful in CI/CD environments where these values can be injected from environment variables.
+
+**Note**: The `GitInformation` class is always generated regardless of whether Git information is available, ensuring zero configuration and no breaking changes to your builds.
 
 ## Contributing
 If you would like to contribute to the project, please submit a pull request or open an issue on the project's GitHub page. We welcome any feedback, bug reports, or feature requests.
