@@ -6,6 +6,10 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Fixed
+
+- Build fails because of backward slash in the ProjectDirectory. Reported by [@Arnab-Developer](https://github.com/Arnab-Developer) in #105.
+
 ## [2.1.2] - 2025-12-09
 
 ### Fixed
