@@ -6,6 +6,8 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+## [2.1.3] - 2026-05-15
+
 ### Fixed
 
 - Build fails because of backward slash in the ProjectDirectory. Reported by [@Arnab-Developer](https://github.com/Arnab-Developer) in #105.
@@ -122,7 +124,8 @@ The following options were added:
 
 - New assembly related objects
 
-[unreleased]: https://github.com/linkdotnet/BuildInformation/compare/2.1.2...HEAD
+[unreleased]: https://github.com/linkdotnet/BuildInformation/compare/2.1.3...HEAD
+[2.1.3]: https://github.com/linkdotnet/BuildInformation/compare/2.1.2...2.1.3
 [2.1.2]: https://github.com/linkdotnet/BuildInformation/compare/2.1.1...2.1.2
 [2.1.1]: https://github.com/linkdotnet/BuildInformation/compare/2.1.0...2.1.1
 [2.1.0]: https://github.com/linkdotnet/BuildInformation/compare/2.0.0...2.1.0
