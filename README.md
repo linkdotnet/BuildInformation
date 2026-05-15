@@ -76,24 +76,24 @@ Console.WriteLine($"DotNet SDK version: {BuildInformation.DotNetSdkVersion}");
 
 You can also hover over the properties to get the currently held value (xmldoc support). An example output could look like this:
 ```no-class
-Build at: 08/12/2025 11:51:53
+Build at: 15.05.2026 08:22:23
 Platform: AnyCpu
-Warning level: 8
-Configuration: Release
+Warning level: 10
+Configuration: Debug
 Assembly version: 1.0
 Assembly file version: 1.2
 Assembly name: LinkDotNet.BuildInformation.Sample
 Assembly copyright: LinkDotNet 2025
 Assembly company: LinkDotNet
-Target framework moniker: net8.0
+Target framework moniker: net10.0
 Analysis level: Enable
 Deterministic build: True
-Analysis level: 8.0
-Project directory: /Users/example/repo/this/Sample.csproj
+Analysis level: 10.0
+Project directory: /Users/stevengiesel/repos/BuildInformation/LinkDotNet.BuildInformation.Sample/
 Language: C#
 Language version: 14.0
-Compiler version: 5.0.0.0
-DotNet SDK version: .NET 10.0.0
+Compiler version: 5.7.0.0
+DotNet SDK version: .NET 11.0.0-preview.3.26207.106
 ```
 
 ## Contributing
