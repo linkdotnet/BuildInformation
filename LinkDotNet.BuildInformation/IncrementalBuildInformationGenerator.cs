@@ -37,28 +37,28 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
             var isReleaseBuild = compiler.Options.OptimizationLevel == OptimizationLevel.Release;
 
             var buildInformation = new BuildInformationInfo
-            {
-                BuildAt = buildAtIso,
-                Platform = compiler.Options.Platform.ToString(),
-                WarningLevel = compiler.Options.WarningLevel,
-                Configuration = configuration,
-                AssemblyVersion = GetAssemblyVersion(assembly) ?? string.Empty,
-                AssemblyFileVersion = GetAssemblyFileVersion(assembly) ?? string.Empty,
-                AssemblyName = assembly.Name,
-                AssemblyCopyright = GetAssemblyCopyright(assembly) ?? string.Empty,
-                AssemblyCompany = GetAssemblyCompany(assembly) ?? string.Empty,
-                TargetFrameworkMoniker = targetFrameworkValue ?? string.Empty,
-                Nullability = nullability,
-                Deterministic = compiler.Options.Deterministic,
-                RootNamespace = rootNamespace,
-                AnalysisLevel = analysisLevel ?? string.Empty,
-                ProjectDirectory = projectDirectory,
-                Language = CSharpParseOptions.Default.Language,
-                LanguageVersion = CSharpParseOptions.Default.LanguageVersion.ToDisplayString(),
-                IsReleaseBuild = isReleaseBuild,
-                CompilerVersion = typeof(CSharpCompilation).Assembly.GetName().Version?.ToString() ?? "Unknown",
-                DotNetSdkVersion = GetDotNetSdkVersion(),
-            };
+            (
+                BuildAt: buildAtIso,
+                Platform: compiler.Options.Platform.ToString(),
+                WarningLevel: compiler.Options.WarningLevel,
+                Configuration: configuration,
+                AssemblyVersion: GetAssemblyVersion(assembly) ?? string.Empty,
+                AssemblyFileVersion: GetAssemblyFileVersion(assembly) ?? string.Empty,
+                AssemblyName: assembly.Name,
+                AssemblyCopyright: GetAssemblyCopyright(assembly) ?? string.Empty,
+                AssemblyCompany: GetAssemblyCompany(assembly) ?? string.Empty,
+                TargetFrameworkMoniker: targetFrameworkValue ?? string.Empty,
+                Nullability: nullability,
+                Deterministic: compiler.Options.Deterministic,
+                RootNamespace: rootNamespace,
+                AnalysisLevel: analysisLevel ?? string.Empty,
+                ProjectDirectory: projectDirectory,
+                Language: CSharpParseOptions.Default.Language,
+                LanguageVersion: CSharpParseOptions.Default.LanguageVersion.ToDisplayString(),
+                IsReleaseBuild: isReleaseBuild,
+                CompilerVersion: typeof(CSharpCompilation).Assembly.GetName().Version?.ToString() ?? "Unknown",
+                DotNetSdkVersion: GetDotNetSdkVersion()
+            );
 
             productionContext.AddSource("LinkDotNet.BuildInformation.g", GenerateBuildInformationClass(buildInformation));
         });
@@ -279,27 +279,27 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                  """;
     }
 
-    private sealed class BuildInformationInfo
-    {
-        public string BuildAt { get; set; } = string.Empty;
-        public string Platform { get; set; } = string.Empty;
-        public int WarningLevel { get; set; }
-        public string Configuration { get; set; } = string.Empty;
-        public string AssemblyVersion { get; set; } = string.Empty;
-        public string AssemblyFileVersion { get; set; } = string.Empty;
-        public string AssemblyName { get; set; } = string.Empty;
-        public string AssemblyCopyright { get; set; } = string.Empty;
-        public string AssemblyCompany { get; set; } = string.Empty;
-        public string TargetFrameworkMoniker { get; set; } = string.Empty;
-        public string Nullability { get; set; } = string.Empty;
-        public bool Deterministic { get; set; }
-        public string RootNamespace { get; set; } = string.Empty;
-        public string AnalysisLevel { get; set; } = string.Empty;
-        public string ProjectDirectory { get; set; } = string.Empty;
-        public string Language { get; set; } = string.Empty;
-        public string LanguageVersion { get; set; } = string.Empty;
-        public bool IsReleaseBuild { get; set; }
-        public string CompilerVersion { get; set; } = string.Empty;
-        public string DotNetSdkVersion { get; set; } = string.Empty;
-    }
+    private sealed record BuildInformationInfo
+    (
+        string BuildAt,
+        string Platform,
+        int WarningLevel,
+        string Configuration,
+        string AssemblyVersion,
+        string AssemblyFileVersion,
+        string AssemblyName,
+        string AssemblyCopyright,
+        string AssemblyCompany,
+        string TargetFrameworkMoniker,
+        string Nullability,
+        bool Deterministic,
+        string RootNamespace,
+        string AnalysisLevel,
+        string ProjectDirectory,
+        string Language,
+        string LanguageVersion,
+        bool IsReleaseBuild,
+        string CompilerVersion,
+        string DotNetSdkVersion
+    );
 }
