@@ -6,6 +6,10 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Fixed
+
+- Use SyntaxFactory.Literal consistently
+
 ## [2.1.3] - 2026-05-15
 
 ### Fixed

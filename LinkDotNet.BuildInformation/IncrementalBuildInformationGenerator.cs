@@ -132,12 +132,12 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
         analyzer.GlobalOptions.TryGetValue("build_property.AllowProjectDirectoryBuildOutput", out var allowOutput);
         if (!allowOutput?.Equals("true", StringComparison.InvariantCultureIgnoreCase) ?? true)
         {
-            return string.Empty;
+            return SyntaxFactory.Literal(string.Empty).ToString();
         }
 
 
         return !analyzer.GlobalOptions.TryGetValue("build_property.projectDir", out var projectDir)
-            ? string.Empty
+            ? SyntaxFactory.Literal(string.Empty).ToString()
             : SyntaxFactory.Literal(projectDir).ToString();
     }
     
