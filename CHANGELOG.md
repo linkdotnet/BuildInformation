@@ -6,6 +6,8 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+## [2.1.4] - 2026-05-16
+
 ### Fixed
 
 - Use SyntaxFactory.Literal consistently
@@ -128,7 +130,8 @@ The following options were added:
 
 - New assembly related objects
 
-[unreleased]: https://github.com/linkdotnet/BuildInformation/compare/2.1.3...HEAD
+[unreleased]: https://github.com/linkdotnet/BuildInformation/compare/2.1.4...HEAD
+[2.1.4]: https://github.com/linkdotnet/BuildInformation/compare/2.1.3...2.1.4
 [2.1.3]: https://github.com/linkdotnet/BuildInformation/compare/2.1.2...2.1.3
 [2.1.2]: https://github.com/linkdotnet/BuildInformation/compare/2.1.1...2.1.2
 [2.1.1]: https://github.com/linkdotnet/BuildInformation/compare/2.1.0...2.1.1
