@@ -6,6 +6,10 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Fixed
+
+- Revert `Microsoft.CodeAnalysis.CSharp` to last major version so we have less issues.
+
 ## [2.1.4] - 2026-05-16
 
 ### Fixed
