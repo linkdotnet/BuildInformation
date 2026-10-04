@@ -19,6 +19,7 @@ robots.txt
 .idea/
 *.csproj.user
 *.dotsettings.user
+*.lscache
 
 # Coverage files and reports
 /**/TestResults/*

@@ -8,6 +8,7 @@ Console.WriteLine($"Warning level: {BuildInformation.WarningLevel}");
 Console.WriteLine($"Configuration: {BuildInformation.Configuration}");
 Console.WriteLine($"Assembly version: {BuildInformation.AssemblyVersion}");
 Console.WriteLine($"Assembly file version: {BuildInformation.AssemblyFileVersion}");
+Console.WriteLine($"Assembly informational version: {BuildInformation.AssemblyInformationalVersion}");
 Console.WriteLine($"Assembly name: {BuildInformation.AssemblyName}");
 Console.WriteLine($"Assembly copyright: {BuildInformation.AssemblyCopyright}");
 Console.WriteLine($"Assembly company: {BuildInformation.AssemblyCompany}");

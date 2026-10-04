@@ -12,6 +12,7 @@ This project provides a simple and easy-to-use C# source generator that embeds b
 * Embeds compiler warning level in your code
 * Embeds build configuration (e.g., Debug, Release) in your code
 * Embeds the assembly version and assembly file version in your code
+* Embeds the assembly informational version (e.g. `1.2.3-beta+abc123`) in your code. The .NET SDK appends the commit SHA automatically (disable via `<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>`)
 * Embeds the target framework moniker in your code
 * Embeds the nullability analysis level in your code
 * Embeds the deterministic build flag in your code
@@ -60,6 +61,7 @@ Console.WriteLine($"Warning level: {BuildInformation.WarningLevel}");
 Console.WriteLine($"Configuration: {BuildInformation.Configuration}");
 Console.WriteLine($"Assembly version: {BuildInformation.AssemblyVersion}");
 Console.WriteLine($"Assembly file version: {BuildInformation.AssemblyFileVersion}");
+Console.WriteLine($"Assembly informational version: {BuildInformation.AssemblyInformationalVersion}");
 Console.WriteLine($"Assembly name: {BuildInformation.AssemblyName}");
 Console.WriteLine($"Assembly copyright: {BuildInformation.AssemblyCopyright}");
 Console.WriteLine($"Assembly company: {BuildInformation.AssemblyCompany}");
@@ -82,6 +84,7 @@ Warning level: 10
 Configuration: Debug
 Assembly version: 1.0
 Assembly file version: 1.2
+Assembly informational version: 1.0.0+da778dfd0f233100b6cbaf0689f8f8d35f60b975
 Assembly name: LinkDotNet.BuildInformation.Sample
 Assembly copyright: LinkDotNet 2025
 Assembly company: LinkDotNet

@@ -6,6 +6,10 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Added
+
+- `AssemblyInformationalVersion` (includes the commit SHA when SourceLink is active).
+
 ## [2.1.5] - 2026-06-24
 
 ### Fixed

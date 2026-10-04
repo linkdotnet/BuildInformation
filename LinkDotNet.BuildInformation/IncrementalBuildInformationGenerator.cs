@@ -44,6 +44,7 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                 Configuration: configuration,
                 AssemblyVersion: GetAssemblyVersion(assembly) ?? string.Empty,
                 AssemblyFileVersion: GetAssemblyFileVersion(assembly) ?? string.Empty,
+                AssemblyInformationalVersion: GetAssemblyInformationalVersion(assembly) ?? string.Empty,
                 AssemblyName: assembly.Name,
                 AssemblyCopyright: GetAssemblyCopyright(assembly) ?? string.Empty,
                 AssemblyCompany: GetAssemblyCompany(assembly) ?? string.Empty,
@@ -103,7 +104,17 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
             : string.Empty;
         return assemblyCompany;
     }
-    
+
+    private static string? GetAssemblyInformationalVersion(ISymbol assembly)
+    {
+        var assemblyInformationalVersionAttribute = assembly.GetAttributes()
+            .FirstOrDefault(attr => attr.AttributeClass?.Name == nameof(AssemblyInformationalVersionAttribute));
+        var assemblyInformationalVersion = assemblyInformationalVersionAttribute is not null
+            ? assemblyInformationalVersionAttribute.ConstructorArguments[0].Value!.ToString()
+            : string.Empty;
+        return assemblyInformationalVersion;
+    }
+
     private static string GetDotNetSdkVersion()
     {
         return RuntimeInformation.FrameworkDescription;
@@ -148,6 +159,7 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
         string Configuration,
         string AssemblyVersion,
         string AssemblyFileVersion,
+        string AssemblyInformationalVersion,
         string AssemblyName,
         string AssemblyCopyright,
         string AssemblyCompany,
@@ -217,7 +229,13 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                      /// </summary>
                      /// <remarks>Value is: {{AssemblyFileVersion}}</remarks>
                      public const string AssemblyFileVersion = "{{AssemblyFileVersion}}";
-                 
+
+                     /// <summary>
+                     /// Returns the assembly informational version (e.g. 1.2.3-beta+abc123).
+                     /// </summary>
+                     /// <remarks>Value is: {{AssemblyInformationalVersion}}</remarks>
+                     public const string AssemblyInformationalVersion = "{{AssemblyInformationalVersion}}";
+
                      /// <summary>
                      /// Returns the assembly name.
                      /// </summary>
