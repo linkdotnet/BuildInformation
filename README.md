@@ -7,7 +7,7 @@
 This project provides a simple and easy-to-use C# source generator that embeds build information, such as the build time, platform, warning level, and configuration, directly into your code. By using the `BuildInformation` class, you can quickly access and display these details.
 
 ## Features
-* Embeds build date (in UTC) in your code
+* Embeds build date (in UTC) in your code. Honors [`SOURCE_DATE_EPOCH`](https://reproducible-builds.org/specs/source-date-epoch/) for reproducible builds
 * Embeds platform (AnyCPU, x86, x64, ...) information in your code
 * Embeds compiler warning level in your code
 * Embeds build configuration (e.g., Debug, Release) in your code
@@ -36,6 +36,12 @@ The `AllowProjectDirectoryBuildOutput` property is used to allow the generator t
 <PropertyGroup>
     <AllowProjectDirectoryBuildOutput>true</AllowProjectDirectoryBuildOutput>
 </PropertyGroup>
+```
+
+### Reproducible builds
+If the `SOURCE_DATE_EPOCH` environment variable (or MSBuild property) is set to a Unix timestamp, it is used for `BuildAt` instead of the current time. This makes the generated code identical across builds of the same commit:
+```bash
+SOURCE_DATE_EPOCH=$(git log -1 --format=%ct) dotnet build
 ```
 
 ## Usage

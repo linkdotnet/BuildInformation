@@ -10,6 +10,7 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 - `AssemblyInformationalVersion` (includes the commit SHA when SourceLink is active).
 - The package ships a `buildTransitive` props file, so `CompilerVisibleProperty` entries no longer need to be added manually.
+- `BuildAt` honors `SOURCE_DATE_EPOCH` for reproducible builds.
 
 ### Fixed
 

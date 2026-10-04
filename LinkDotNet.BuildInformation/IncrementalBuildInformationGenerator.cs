@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Globalization;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using Microsoft.CodeAnalysis;
@@ -30,6 +31,7 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
             analyzer.GlobalOptions.TryGetValue("build_property.effectiveanalysislevelstyle", out var analysisLevel);
             var projectDirectory = GetProjectDirectory(analyzer);
             var isReleaseBuild = compiler.Options.OptimizationLevel == OptimizationLevel.Release;
+            analyzer.GlobalOptions.TryGetValue("build_property.SOURCE_DATE_EPOCH", out var sourceDateEpoch);
 
             return new BuildInformationInfo
             (
@@ -52,13 +54,14 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                 LanguageVersion: ((CSharpCompilation)compiler).LanguageVersion.ToDisplayString(),
                 IsReleaseBuild: isReleaseBuild,
                 CompilerVersion: typeof(CSharpCompilation).Assembly.GetName().Version?.ToString() ?? "Unknown",
-                DotNetSdkVersion: GetDotNetSdkVersion()
+                DotNetSdkVersion: GetDotNetSdkVersion(),
+                SourceDateEpoch: sourceDateEpoch
             );
         });
 
         // BuildAt is excluded from the cached model so edits that don't change build info don't regenerate the source.
         context.RegisterSourceOutput(buildInformationProvider, static (productionContext, buildInformation) =>
-            productionContext.AddSource("LinkDotNet.BuildInformation.g", buildInformation.GenerateBuildInformation(DateTime.UtcNow.ToString("O"))));
+            productionContext.AddSource("LinkDotNet.BuildInformation.g", buildInformation.GenerateBuildInformation(GetBuildAt(buildInformation.SourceDateEpoch))));
     }
     
     private static string? GetAssemblyFileVersion(ISymbol assembly)
@@ -148,6 +151,15 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
             : SyntaxFactory.Literal(projectDir).ToString();
     }
     
+    // SOURCE_DATE_EPOCH: https://reproducible-builds.org/specs/source-date-epoch/
+    private static string GetBuildAt(string? sourceDateEpoch)
+    {
+        var buildAt = long.TryParse(sourceDateEpoch, NumberStyles.None, CultureInfo.InvariantCulture, out var seconds)
+            ? DateTimeOffset.FromUnixTimeSeconds(seconds).UtcDateTime
+            : DateTime.UtcNow;
+        return buildAt.ToString("O");
+    }
+
     private static string Literal(string value) => SyntaxFactory.Literal(value).ToString();
 
     private static string Xml(object value) => System.Security.SecurityElement.Escape(value.ToString());
@@ -172,7 +184,8 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
         string LanguageVersion,
         bool IsReleaseBuild,
         string CompilerVersion,
-        string DotNetSdkVersion
+        string DotNetSdkVersion,
+        string? SourceDateEpoch
     )
     {
         public string GenerateBuildInformation(string buildAt)

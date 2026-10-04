@@ -4,5 +4,6 @@
         <CompilerVisibleProperty Include="AllowProjectDirectoryBuildOutput" />
         <CompilerVisibleProperty Include="Configuration" />
         <CompilerVisibleProperty Include="MSBuildProjectName" />
+        <CompilerVisibleProperty Include="SOURCE_DATE_EPOCH" />
     </ItemGroup>
 </Project>
