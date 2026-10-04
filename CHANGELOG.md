@@ -9,6 +9,12 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 ### Added
 
 - `AssemblyInformationalVersion` (includes the commit SHA when SourceLink is active).
+- The package ships a `buildTransitive` props file, so `CompilerVisibleProperty` entries no longer need to be added manually.
+
+### Fixed
+
+- Custom build configurations (e.g. `Staging`) are now detected without extra setup.
+- The generator no longer regenerates its source on every edit in the IDE, as long as the build information is unchanged.
 
 ## [2.1.5] - 2026-06-24
 

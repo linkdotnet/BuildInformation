@@ -12,12 +12,10 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-        var compilationAndOptionsProvider = context
+        var buildInformationProvider = context
             .CompilationProvider
             .Combine(context.AnalyzerConfigOptionsProvider)
-            .Select((s, _) => s);
-
-        context.RegisterSourceOutput(compilationAndOptionsProvider, static (productionContext, options) =>
+            .Select(static (options, _) =>
         {
             var compiler = options.Left;
             var analyzer = options.Right;
@@ -31,14 +29,10 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
             var rootNamespace = GetRootNamespace(analyzer);
             analyzer.GlobalOptions.TryGetValue("build_property.effectiveanalysislevelstyle", out var analysisLevel);
             var projectDirectory = GetProjectDirectory(analyzer);
-            
-            var buildAtUtc = DateTime.UtcNow;
-            var buildAtIso = buildAtUtc.ToString("O");
             var isReleaseBuild = compiler.Options.OptimizationLevel == OptimizationLevel.Release;
 
-            var buildInformation = new BuildInformationInfo
+            return new BuildInformationInfo
             (
-                BuildAt: buildAtIso,
                 Platform: compiler.Options.Platform.ToString(),
                 WarningLevel: compiler.Options.WarningLevel,
                 Configuration: configuration,
@@ -60,9 +54,11 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                 CompilerVersion: typeof(CSharpCompilation).Assembly.GetName().Version?.ToString() ?? "Unknown",
                 DotNetSdkVersion: GetDotNetSdkVersion()
             );
-
-            productionContext.AddSource("LinkDotNet.BuildInformation.g", buildInformation.GenerateBuildInformation());
         });
+
+        // BuildAt is excluded from the cached model so edits that don't change build info don't regenerate the source.
+        context.RegisterSourceOutput(buildInformationProvider, static (productionContext, buildInformation) =>
+            productionContext.AddSource("LinkDotNet.BuildInformation.g", buildInformation.GenerateBuildInformation(DateTime.UtcNow.ToString("O"))));
     }
     
     private static string? GetAssemblyFileVersion(ISymbol assembly)
@@ -153,7 +149,6 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
     }
     
     private sealed record BuildInformationInfo(
-        string BuildAt,
         string Platform,
         int WarningLevel,
         string Configuration,
@@ -176,7 +171,7 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
         string DotNetSdkVersion
     )
     {
-        public string GenerateBuildInformation()
+        public string GenerateBuildInformation(string buildAt)
         {
             var rootNamespace = string.IsNullOrEmpty(RootNamespace)
             ? string.Empty
@@ -197,8 +192,8 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                      /// <summary>
                      /// Returns the build date (UTC) in ISO 8601 format.
                      /// </summary>
-                     /// <remarks>Value is: {{BuildAt}}</remarks>
-                     public static readonly DateTime BuildAt = DateTime.ParseExact("{{BuildAt}}", "O", CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind);
+                     /// <remarks>Value is: {{buildAt}}</remarks>
+                     public static readonly DateTime BuildAt = DateTime.ParseExact("{{buildAt}}", "O", CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind);
                  
                      /// <summary>
                      /// Returns the platform.

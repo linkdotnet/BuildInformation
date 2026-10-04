@@ -1,0 +1,8 @@
+<Project>
+    <ItemGroup>
+        <CompilerVisibleProperty Include="UseRootNamespaceForBuildInformation" />
+        <CompilerVisibleProperty Include="AllowProjectDirectoryBuildOutput" />
+        <CompilerVisibleProperty Include="Configuration" />
+        <CompilerVisibleProperty Include="MSBuildProjectName" />
+    </ItemGroup>
+</Project>

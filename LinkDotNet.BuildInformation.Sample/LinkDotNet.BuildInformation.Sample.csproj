@@ -15,10 +15,7 @@
         <Company>LinkDotNet</Company>
     </PropertyGroup>
 
-    <ItemGroup Label="Needed so that the source generator can access the variables">
-        <CompilerVisibleProperty Include="UseRootNamespaceForBuildInformation" />
-        <CompilerVisibleProperty Include="AllowProjectDirectoryBuildOutput" />
-    </ItemGroup>
+    <Import Project="..\LinkDotNet.BuildInformation\buildTransitive\LinkDotNet.BuildInformation.props" Label="Imported automatically when consumed via NuGet" />
 
     <ItemGroup>
       <ProjectReference Include="..\LinkDotNet.BuildInformation\LinkDotNet.BuildInformation.csproj" 
