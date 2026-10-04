@@ -15,6 +15,8 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 - Custom build configurations (e.g. `Staging`) are now detected without extra setup.
 - The generator no longer regenerates its source on every edit in the IDE, as long as the build information is unchanged.
+- Values containing quotes, backslashes, `&` or `<` (e.g. in `Copyright` or `Company`) no longer break the build.
+- `LanguageVersion` now reports the project's `LangVersion` instead of the compiler's default.
 
 ## [2.1.5] - 2026-06-24
 

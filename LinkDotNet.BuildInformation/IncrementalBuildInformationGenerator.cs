@@ -49,7 +49,7 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                 AnalysisLevel: analysisLevel ?? string.Empty,
                 ProjectDirectory: projectDirectory,
                 Language: CSharpParseOptions.Default.Language,
-                LanguageVersion: CSharpParseOptions.Default.LanguageVersion.ToDisplayString(),
+                LanguageVersion: ((CSharpCompilation)compiler).LanguageVersion.ToDisplayString(),
                 IsReleaseBuild: isReleaseBuild,
                 CompilerVersion: typeof(CSharpCompilation).Assembly.GetName().Version?.ToString() ?? "Unknown",
                 DotNetSdkVersion: GetDotNetSdkVersion()
@@ -148,6 +148,10 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
             : SyntaxFactory.Literal(projectDir).ToString();
     }
     
+    private static string Literal(string value) => SyntaxFactory.Literal(value).ToString();
+
+    private static string Xml(object value) => System.Security.SecurityElement.Escape(value.ToString());
+
     private sealed record BuildInformationInfo(
         string Platform,
         int WarningLevel,
@@ -192,74 +196,74 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                      /// <summary>
                      /// Returns the build date (UTC) in ISO 8601 format.
                      /// </summary>
-                     /// <remarks>Value is: {{buildAt}}</remarks>
+                     /// <remarks>Value is: {{Xml(buildAt)}}</remarks>
                      public static readonly DateTime BuildAt = DateTime.ParseExact("{{buildAt}}", "O", CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind);
                  
                      /// <summary>
                      /// Returns the platform.
                      /// </summary>
-                     /// <remarks>Value is: {{Platform}}</remarks>
-                     public const string Platform = "{{Platform}}";
+                     /// <remarks>Value is: {{Xml(Platform)}}</remarks>
+                     public const string Platform = {{Literal(Platform)}};
                  
                      /// <summary>
                      /// Returns the warning level.
                      /// </summary>
-                     /// <remarks>Value is: {{WarningLevel}}</remarks>
+                     /// <remarks>Value is: {{Xml(WarningLevel)}}</remarks>
                      public const int WarningLevel = {{WarningLevel}};
                  
                      /// <summary>
                      /// Returns the configuration.
                      /// </summary>
-                     /// <remarks>Value is: {{Configuration}}</remarks>
-                     public const string Configuration = "{{Configuration}}";
+                     /// <remarks>Value is: {{Xml(Configuration)}}</remarks>
+                     public const string Configuration = {{Literal(Configuration)}};
                  
                      /// <summary>
                      /// Returns the assembly version.
                      /// </summary>
-                     /// <remarks>Value is: {{AssemblyVersion}}</remarks>
-                     public const string AssemblyVersion = "{{AssemblyVersion}}";
+                     /// <remarks>Value is: {{Xml(AssemblyVersion)}}</remarks>
+                     public const string AssemblyVersion = {{Literal(AssemblyVersion)}};
                  
                      /// <summary>
                      /// Returns the assembly file version.
                      /// </summary>
-                     /// <remarks>Value is: {{AssemblyFileVersion}}</remarks>
-                     public const string AssemblyFileVersion = "{{AssemblyFileVersion}}";
+                     /// <remarks>Value is: {{Xml(AssemblyFileVersion)}}</remarks>
+                     public const string AssemblyFileVersion = {{Literal(AssemblyFileVersion)}};
 
                      /// <summary>
                      /// Returns the assembly informational version (e.g. 1.2.3-beta+abc123).
                      /// </summary>
-                     /// <remarks>Value is: {{AssemblyInformationalVersion}}</remarks>
-                     public const string AssemblyInformationalVersion = "{{AssemblyInformationalVersion}}";
+                     /// <remarks>Value is: {{Xml(AssemblyInformationalVersion)}}</remarks>
+                     public const string AssemblyInformationalVersion = {{Literal(AssemblyInformationalVersion)}};
 
                      /// <summary>
                      /// Returns the assembly name.
                      /// </summary>
-                     /// <remarks>Value is: {{AssemblyName}}</remarks>
-                     public const string AssemblyName = "{{AssemblyName}}";
+                     /// <remarks>Value is: {{Xml(AssemblyName)}}</remarks>
+                     public const string AssemblyName = {{Literal(AssemblyName)}};
                  
                      /// <summary>
                      /// Returns the assembly copyright.
                      /// </summary>
-                     /// <remarks>Value is: {{AssemblyCopyright}}</remarks>
-                     public const string AssemblyCopyright = "{{AssemblyCopyright}}";
+                     /// <remarks>Value is: {{Xml(AssemblyCopyright)}}</remarks>
+                     public const string AssemblyCopyright = {{Literal(AssemblyCopyright)}};
                  
                      /// <summary>
                      /// Returns the assembly company.
                      /// </summary>
-                     /// <remarks>Value is: {{AssemblyCompany}}</remarks>
-                     public const string AssemblyCompany = "{{AssemblyCompany}}";
+                     /// <remarks>Value is: {{Xml(AssemblyCompany)}}</remarks>
+                     public const string AssemblyCompany = {{Literal(AssemblyCompany)}};
                  
                      /// <summary>
                      /// Returns the target framework moniker.
                      /// </summary>
-                     /// <remarks>Value is: {{TargetFrameworkMoniker}}</remarks>
-                     public const string TargetFrameworkMoniker = "{{TargetFrameworkMoniker}}";
+                     /// <remarks>Value is: {{Xml(TargetFrameworkMoniker)}}</remarks>
+                     public const string TargetFrameworkMoniker = {{Literal(TargetFrameworkMoniker)}};
                  
                      /// <summary>
                      /// Returns the nullability level.
                      /// </summary>
-                     /// <remarks>Value is: {{Nullability}}</remarks>
-                     public const string Nullability = "{{Nullability}}";
+                     /// <remarks>Value is: {{Xml(Nullability)}}</remarks>
+                     public const string Nullability = {{Literal(Nullability)}};
                  
                      /// <summary>
                      /// Returns whether the build is deterministic.
@@ -270,28 +274,28 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                      /// <summary>
                      /// Returns the Analysis level of the application.
                      /// </summary>
-                     /// <remarks>Value is: {{AnalysisLevel}}</remarks>
-                     public const string AnalysisLevel = "{{AnalysisLevel}}";
+                     /// <remarks>Value is: {{Xml(AnalysisLevel)}}</remarks>
+                     public const string AnalysisLevel = {{Literal(AnalysisLevel)}};
                      
                      /// <summary>
                      /// Returns the project directory.
                      /// </summary>
-                     /// <remarks>Value is: {{ProjectDirectory}}</remarks>
+                     /// <remarks>Value is: {{Xml(ProjectDirectory)}}</remarks>
                      public const string ProjectDirectory = {{ProjectDirectory}};
                      
                      /// <summary>
                      /// Returns the language the code is compiled against (like C# or F#).
                      /// </summary>
                      /// <example>C#</example>
-                     /// <remarks>Value is {{Language}}</remarks>
-                     public const string Language = "{{Language}}";
+                     /// <remarks>Value is {{Xml(Language)}}</remarks>
+                     public const string Language = {{Literal(Language)}};
                      
                      /// <summary>
                      /// Returns the language version the code is compiled against. This is only the version (like 12.0).
                      /// </summary>
                      /// <example>12.0</example>
-                     /// <remarks>Value is {{LanguageVersion}}</remarks>
-                     public const string LanguageVersion = "{{LanguageVersion}}";
+                     /// <remarks>Value is {{Xml(LanguageVersion)}}</remarks>
+                     public const string LanguageVersion = {{Literal(LanguageVersion)}};
                      
                      /// <summary>
                      /// Returns whether the build is in Release mode.
@@ -302,15 +306,15 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                      /// <summary>
                      /// Returns the Roslyn/C# compiler version used during the build.
                      /// </summary>
-                     /// <remarks>Value is: {{CompilerVersion}}</remarks>
-                     public const string CompilerVersion = "{{CompilerVersion}}";
+                     /// <remarks>Value is: {{Xml(CompilerVersion)}}</remarks>
+                     public const string CompilerVersion = {{Literal(CompilerVersion)}};
                      
                      /// <summary>
                      /// Returns the .NET runtime/framework version on which the build occurred (.NET SDK version).
                      /// This can differ from <see cref="TargetFrameworkMoniker"/> which indicates the target framework for which the code will run.
                      /// </summary>
-                     /// <remarks>Value is: {{DotNetSdkVersion}}</remarks>
-                     public const string DotNetSdkVersion = "{{DotNetSdkVersion}}";
+                     /// <remarks>Value is: {{Xml(DotNetSdkVersion)}}</remarks>
+                     public const string DotNetSdkVersion = {{Literal(DotNetSdkVersion)}};
                  }
                  """;
         }
