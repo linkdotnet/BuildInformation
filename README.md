@@ -4,34 +4,35 @@
 [![Nuget](https://img.shields.io/nuget/dt/LinkDotNet.BuildInformation)](https://www.nuget.org/packages/LinkDotNet.BuildInformation/)
 [![GitHub tag](https://img.shields.io/github/v/tag/linkdotnet/BuildInformation?include_prereleases&logo=github&style=flat-square)](https://github.com/linkdotnet/BuildInformation/releases)
 
-This project provides a simple and easy-to-use C# source generator that embeds build information, such as the build time, platform, warning level, and configuration, directly into your code. By using the `BuildInformation` class, you can quickly access and display these details.
+This project provides a C# source generator that embeds build information in a `BuildInformation` class at compile time. The values describe the build that produced the assembly; they are not read from the machine at runtime.
 
 ## Features
 * Embeds build date (in UTC) in your code. Honors [`SOURCE_DATE_EPOCH`](https://reproducible-builds.org/specs/source-date-epoch/) for reproducible builds
 * Embeds platform (AnyCPU, x86, x64, ...) information in your code
 * Embeds compiler warning level in your code
 * Embeds build configuration (e.g., Debug, Release) in your code
-* Embeds the assembly version and assembly file version in your code
-* Embeds the assembly informational version (e.g. `1.2.3-beta+abc123`) in your code. The .NET SDK appends the commit SHA automatically (disable via `<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>`)
+* Embeds assembly version, file version, informational version, name, company, and copyright
 * Embeds the target framework moniker in your code
-* Embeds the nullability analysis level in your code
-* Embeds the deterministic build flag in your code
-* Embeds the project path where the generator is running in your code
-* Embeds the language and language version (like "C#" and "12.0")
+* Embeds the nullable-context setting, analysis level, and deterministic-build flag
+* Embeds the project directory when explicitly enabled (disabled by default to avoid exposing local paths)
+* Embeds the language and configured language version (like "C#" and "12.0")
+* Embeds whether the build uses Release optimization, plus the Roslyn compiler and .NET SDK runtime versions
+
+The generator is an analyzer and adds no runtime dependency. The generated `BuildInformation` class is `internal` by default, in the global namespace, and its members are public.
 
 ## Configuration
 The NuGet package makes all needed MSBuild properties visible to the generator automatically, so setting the property is enough.
 
-By default the created class is `internal` and is not under any namespace. This can be changed by adding the following to your project file:
+To put the generated class in the project's root namespace (useful when multiple projects reference each other), add this to your project file:
 ```xml
 <PropertyGroup>
     <UseRootNamespaceForBuildInformation>true</UseRootNamespaceForBuildInformation>
 </PropertyGroup>
 ```
 
-This will use the root namespace of the project for the generated class. This is especially helpful if the generator is used in multiple projects, that might be visible to each other.
+With this option enabled, include the root namespace in your `using` directive.
 
-The `AllowProjectDirectoryBuildOutput` property is used to allow the generator to write the project directory into the generated class. This is disabled by default, as it might leak sensitive information.
+The `AllowProjectDirectoryBuildOutput` property includes the project directory in the generated class. It is disabled by default because local paths may be sensitive.
 ```xml
 <PropertyGroup>
     <AllowProjectDirectoryBuildOutput>true</AllowProjectDirectoryBuildOutput>
@@ -45,13 +46,13 @@ SOURCE_DATE_EPOCH=$(git log -1 --format=%ct) dotnet build
 ```
 
 ## Usage
-To use the `BuildInformation` class in your project, add the NuGet package:
+Install the NuGet package in an SDK-style C# project:
 
 ```no-class
 dotnet add package LinkDotNet.BuildInformation
 ```
 
-Here is some code how to use the class:
+Build the project, then use the generated class in your code. With the default global namespace, no namespace import is needed:
 ```csharp
 using System;
 
@@ -66,7 +67,7 @@ Console.WriteLine($"Assembly name: {BuildInformation.AssemblyName}");
 Console.WriteLine($"Assembly copyright: {BuildInformation.AssemblyCopyright}");
 Console.WriteLine($"Assembly company: {BuildInformation.AssemblyCompany}");
 Console.WriteLine($"Target framework moniker: {BuildInformation.TargetFrameworkMoniker}");
-Console.WriteLine($"Analysis level: {BuildInformation.Nullability}");
+Console.WriteLine($"Nullability: {BuildInformation.Nullability}");
 Console.WriteLine($"Deterministic build: {BuildInformation.Deterministic}");
 Console.WriteLine($"Analysis level: {BuildInformation.AnalysisLevel}");
 Console.WriteLine($"Project directory: {BuildInformation.ProjectDirectory}");
@@ -74,11 +75,14 @@ Console.WriteLine($"Language: {BuildInformation.Language}");
 Console.WriteLine($"Language version: {BuildInformation.LanguageVersion}");
 Console.WriteLine($"Compiler version: {BuildInformation.CompilerVersion}");
 Console.WriteLine($"DotNet SDK version: {BuildInformation.DotNetSdkVersion}");
+Console.WriteLine($"Release build: {BuildInformation.IsReleaseBuild}");
 ```
 
-You can also hover over the properties to get the currently held value (xmldoc support). An example output could look like this:
+The [sample project](LinkDotNet.BuildInformation.Sample) shows all generated values and opts into the root namespace and project directory. It references the generator project directly for local development; package consumers only need the NuGet package above. Hover over the properties in an IDE to see their generated XML documentation.
+
+An example output could look like this (values depend on the build environment):
 ```no-class
-Build at: 15.05.2026 08:22:23
+Build at: 2026-10-31T20:59:26.0000000Z
 Platform: AnyCpu
 Warning level: 10
 Configuration: Debug
@@ -89,15 +93,18 @@ Assembly name: LinkDotNet.BuildInformation.Sample
 Assembly copyright: LinkDotNet 2025
 Assembly company: LinkDotNet
 Target framework moniker: net10.0
-Analysis level: Enable
+Nullability: Enable
 Deterministic build: True
 Analysis level: 10.0
-Project directory: /Users/stevengiesel/repos/BuildInformation/LinkDotNet.BuildInformation.Sample/
+Project directory: /path/to/LinkDotNet.BuildInformation.Sample/
 Language: C#
 Language version: 14.0
-Compiler version: 5.7.0.0
-DotNet SDK version: .NET 11.0.0-preview.3.26207.106
+Compiler version: 5.9.0.0
+DotNet SDK version: .NET 10.0.14
+Release build: False
 ```
+
+The .NET SDK appends the commit SHA to `AssemblyInformationalVersion` when source revision information is available. To disable that behavior, set `<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>` in your project.
 
 ## Contributing
 If you would like to contribute to the project, please submit a pull request or open an issue on the project's GitHub page. We welcome any feedback, bug reports, or feature requests.
