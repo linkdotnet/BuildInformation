@@ -1,0 +1,42 @@
+site_name: LinkDotNet.BuildInformation
+site_description: C# source generator that embeds build information into your assembly at compile time.
+site_url: https://linkdotnet.github.io/BuildInformation/
+repo_url: https://github.com/linkdotnet/BuildInformation
+repo_name: linkdotnet/BuildInformation
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  logo: assets/logo.png
+  favicon: assets/logo.png
+  features:
+    - content.code.copy
+    - navigation.sections
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+nav:
+  - Home: index.md
+  - Generated members: reference.md
+  - Configuration: configuration.md
+  - Dependencies: dependencies.md
+  - Limitations: limitations.md

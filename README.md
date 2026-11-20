@@ -4,6 +4,8 @@
 [![Nuget](https://img.shields.io/nuget/dt/LinkDotNet.BuildInformation)](https://www.nuget.org/packages/LinkDotNet.BuildInformation/)
 [![GitHub tag](https://img.shields.io/github/v/tag/linkdotnet/BuildInformation?include_prereleases&logo=github&style=flat-square)](https://github.com/linkdotnet/BuildInformation/releases)
 
+📖 **Documentation:** https://linkdotnet.github.io/BuildInformation/
+
 This project provides a C# source generator that embeds build information in a `BuildInformation` class at compile time. The values describe the build that produced the assembly; they are not read from the machine at runtime.
 
 ## Features

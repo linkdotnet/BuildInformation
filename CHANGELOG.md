@@ -6,6 +6,14 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Added
+
+- Documentation site at https://linkdotnet.github.io/BuildInformation/.
+
+### Changed
+
+- Lowered `Microsoft.CodeAnalysis.CSharp` to 4.8.0, so the generator works with .NET SDK 8.0.100 and Visual Studio 2022 17.8 or later.
+
 ## [2.3.0] - 2026-11-20
 
 ### Added
