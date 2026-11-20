@@ -6,6 +6,8 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+## [2.3.0] - 2026-11-20
+
 ### Added
 
 - Opt-in `DirectDependencies`, `TransitiveDependencies` (name and version) and `DependenciesJson` via `IncludeDependenciesInBuildInformation`.
@@ -159,7 +161,8 @@ The following options were added:
 
 - New assembly related objects
 
-[unreleased]: https://github.com/linkdotnet/BuildInformation/compare/2.2.0...HEAD
+[unreleased]: https://github.com/linkdotnet/BuildInformation/compare/2.3.0...HEAD
+[2.3.0]: https://github.com/linkdotnet/BuildInformation/compare/2.2.0...2.3.0
 [2.2.0]: https://github.com/linkdotnet/BuildInformation/compare/2.1.5...2.2.0
 [2.1.5]: https://github.com/linkdotnet/BuildInformation/compare/2.1.4...2.1.5
 [2.1.4]: https://github.com/linkdotnet/BuildInformation/compare/2.1.3...2.1.4
