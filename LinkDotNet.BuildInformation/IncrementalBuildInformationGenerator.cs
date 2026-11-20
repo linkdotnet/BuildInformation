@@ -59,9 +59,27 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
             );
         });
 
+        var dependenciesProvider = context.AdditionalTextsProvider
+            .Where(static file => Path.GetFileName(file.Path).Equals("project.assets.json", StringComparison.OrdinalIgnoreCase))
+            .Collect()
+            .Combine(context.AnalyzerConfigOptionsProvider)
+            .Select(static (pair, cancellationToken) =>
+            {
+                var options = pair.Right.GlobalOptions;
+                options.TryGetValue("build_property.IncludeDependenciesInBuildInformation", out var include);
+                if (!string.Equals(include, "true", StringComparison.OrdinalIgnoreCase))
+                {
+                    return string.Empty;
+                }
+
+                options.TryGetValue("build_property.TargetFramework", out var targetFramework);
+                var assetsJson = pair.Left.FirstOrDefault()?.GetText(cancellationToken)?.ToString();
+                return Dependencies.Generate(assetsJson, targetFramework);
+            });
+
         // BuildAt is excluded from the cached model so edits that don't change build info don't regenerate the source.
-        context.RegisterSourceOutput(buildInformationProvider, static (productionContext, buildInformation) =>
-            productionContext.AddSource("LinkDotNet.BuildInformation.g", buildInformation.GenerateBuildInformation(GetBuildAt(buildInformation.SourceDateEpoch))));
+        context.RegisterSourceOutput(buildInformationProvider.Combine(dependenciesProvider), static (productionContext, pair) =>
+            productionContext.AddSource("LinkDotNet.BuildInformation.g", pair.Left.GenerateBuildInformation(GetBuildAt(pair.Left.SourceDateEpoch), pair.Right)));
     }
     
     private static string? GetAssemblyFileVersion(ISymbol assembly)
@@ -160,7 +178,7 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
         return buildAt.ToString("O");
     }
 
-    private static string Literal(string value) => SyntaxFactory.Literal(value).ToString();
+    internal static string Literal(string value) => SyntaxFactory.Literal(value).ToString();
 
     private static string Xml(object value) => System.Security.SecurityElement.Escape(value.ToString());
 
@@ -188,7 +206,7 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
         string? SourceDateEpoch
     )
     {
-        public string GenerateBuildInformation(string buildAt)
+        public string GenerateBuildInformation(string buildAt, string dependencies)
         {
             var rootNamespace = string.IsNullOrEmpty(RootNamespace)
             ? string.Empty
@@ -327,7 +345,7 @@ public sealed class IncrementalBuildInformationGenerator : IIncrementalGenerator
                      /// This can differ from <see cref="TargetFrameworkMoniker"/> which indicates the target framework for which the code will run.
                      /// </summary>
                      /// <remarks>Value is: {{Xml(DotNetSdkVersion)}}</remarks>
-                     public const string DotNetSdkVersion = {{Literal(DotNetSdkVersion)}};
+                     public const string DotNetSdkVersion = {{Literal(DotNetSdkVersion)}};{{dependencies}}
                  }
                  """;
         }

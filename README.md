@@ -17,6 +17,7 @@ This project provides a C# source generator that embeds build information in a `
 * Embeds the project directory when explicitly enabled (disabled by default to avoid exposing local paths)
 * Embeds the language and configured language version (like "C#" and "12.0")
 * Embeds whether the build uses Release optimization, plus the Roslyn compiler and .NET SDK runtime versions
+* Optionally embeds the direct and transitive dependencies (name and version)
 
 The generator is an analyzer and adds no runtime dependency. The generated `BuildInformation` class is `internal` by default, in the global namespace, and its members are public.
 
@@ -38,6 +39,36 @@ The `AllowProjectDirectoryBuildOutput` property includes the project directory i
     <AllowProjectDirectoryBuildOutput>true</AllowProjectDirectoryBuildOutput>
 </PropertyGroup>
 ```
+
+### Dependencies
+Set `IncludeDependenciesInBuildInformation` to embed the resolved direct and transitive dependencies (NuGet packages and project references) of the current target framework:
+```xml
+<PropertyGroup>
+    <IncludeDependenciesInBuildInformation>true</IncludeDependenciesInBuildInformation>
+</PropertyGroup>
+```
+
+```csharp
+foreach (var dependency in BuildInformation.DirectDependencies)
+{
+    Console.WriteLine($"{dependency.Name} {dependency.Version}");
+}
+
+foreach (var dependency in BuildInformation.TransitiveDependencies)
+{
+    Console.WriteLine($"{dependency.Name} {dependency.Version}");
+}
+
+// {"direct":[{"name":"Serilog.Sinks.Console","version":"6.0.0"}],"transitive":[{"name":"Serilog","version":"4.0.0"}]}
+Console.WriteLine(BuildInformation.DependenciesJson);
+```
+
+#### How it works
+When enabled, the package adds the project's `project.assets.json` (written by `dotnet restore`) as an `AdditionalFiles` item. The generator reads the entry for the current target framework: every resolved package or project is a dependency, and the ones declared in the project file are the direct ones; everything else is transitive. Versions are the resolved versions, not the ranges from the project file.
+
+Everything is computed at compile time, so there is no runtime cost and `DependenciesJson` is a `const`. The generator step costs a few milliseconds per compilation (about 1 ms for ~50 packages and about 7 ms for a 770 KB assets file with 4 target frameworks), and in the IDE it only runs again when the assets file changes.
+
+The feature is opt-in because the exact package versions are embedded in your assembly, where anyone can read them and look up known vulnerabilities. It also adds a string for every dependency to the binary. `DependenciesJson` is a lightweight list and not a standardized SBOM; use tools like [CycloneDX](https://github.com/CycloneDX/cyclonedx-dotnet) or [Microsoft.Sbom.Targets](https://github.com/microsoft/sbom-tool) for CycloneDX or SPDX documents.
 
 ### Reproducible builds
 If the `SOURCE_DATE_EPOCH` environment variable (or MSBuild property) is set to a Unix timestamp, it is used for `BuildAt` instead of the current time. This makes the generated code identical across builds of the same commit:

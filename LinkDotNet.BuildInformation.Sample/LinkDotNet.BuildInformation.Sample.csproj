@@ -11,6 +11,7 @@
         <!-- Custom properties of LinkDotNet.BuildInformation -->
         <UseRootNamespaceForBuildInformation>true</UseRootNamespaceForBuildInformation>
         <AllowProjectDirectoryBuildOutput>true</AllowProjectDirectoryBuildOutput>
+        <IncludeDependenciesInBuildInformation>true</IncludeDependenciesInBuildInformation>
         <Copyright>LinkDotNet 2025</Copyright>
         <Company>LinkDotNet</Company>
     </PropertyGroup>

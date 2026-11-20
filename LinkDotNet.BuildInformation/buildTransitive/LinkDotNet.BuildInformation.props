@@ -3,7 +3,12 @@
         <CompilerVisibleProperty Include="UseRootNamespaceForBuildInformation" />
         <CompilerVisibleProperty Include="AllowProjectDirectoryBuildOutput" />
         <CompilerVisibleProperty Include="Configuration" />
+        <CompilerVisibleProperty Include="TargetFramework" />
         <CompilerVisibleProperty Include="MSBuildProjectName" />
         <CompilerVisibleProperty Include="SOURCE_DATE_EPOCH" />
+        <CompilerVisibleProperty Include="IncludeDependenciesInBuildInformation" />
+    </ItemGroup>
+    <ItemGroup Condition="'$(IncludeDependenciesInBuildInformation)' == 'true'">
+        <AdditionalFiles Include="$(ProjectAssetsFile)" Condition="Exists('$(ProjectAssetsFile)')" />
     </ItemGroup>
 </Project>

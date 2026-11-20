@@ -22,3 +22,5 @@ Console.WriteLine($"Language version: {BuildInformation.LanguageVersion}");
 Console.WriteLine($"Compiler version: {BuildInformation.CompilerVersion}");
 Console.WriteLine($"DotNet SDK version: {BuildInformation.DotNetSdkVersion}");
 Console.WriteLine($"Release build: {BuildInformation.IsReleaseBuild}");
+Console.WriteLine($"Direct dependencies: {string.Join(", ", BuildInformation.DirectDependencies)}");
+Console.WriteLine($"Transitive dependencies: {string.Join(", ", BuildInformation.TransitiveDependencies)}");

@@ -6,6 +6,14 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Added
+
+- Opt-in `DirectDependencies`, `TransitiveDependencies` (name and version) and `DependenciesJson` via `IncludeDependenciesInBuildInformation`.
+
+### Fixed
+
+- `TargetFrameworkMoniker` is no longer empty for non-.NET Core targets (e.g. `netstandard2.0`).
+
 ## [2.2.0] - 2026-10-04
 
 ### Added
